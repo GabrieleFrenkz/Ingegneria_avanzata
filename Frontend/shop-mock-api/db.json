@@ -1,0 +1,941 @@
+{
+  "products": [
+    {
+      "id": "p-001",
+      "title": "Laptop Ultra 14\"",
+      "description": "Laptop Ultra 14\" pensato per produttività e utilizzo quotidiano.",
+      "price": 40,
+      "originalPrice": 40,
+      "sale": false,
+      "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Laptop+Ultra+14",
+      "tags": [
+        "laptop",
+        "notebook",
+        "portatile"
+      ],
+      "createdAt": "2025-01-10T10:00:00.000Z"
+    },
+    {
+      "id": "p-002",
+      "title": "Laptop Pro 16\"",
+      "description": "Laptop Pro 16\" pensato per produttività e utilizzo quotidiano.",
+      "price": 75,
+      "originalPrice": 85,
+      "sale": true,
+      "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Laptop+Pro+16",
+      "tags": [
+        "laptop",
+        "notebook",
+        "portatile"
+      ],
+      "createdAt": "2025-01-11T10:00:00.000Z"
+    },
+    {
+      "id": "p-003",
+      "title": "Laptop Student 13\"",
+      "description": "Laptop Student 13\" pensato per produttività e utilizzo quotidiano.",
+      "price": 110,
+      "originalPrice": 120,
+      "sale": true,
+      "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Laptop+Student+13",
+      "tags": [
+        "laptop",
+        "notebook",
+        "portatile"
+      ],
+      "createdAt": "2025-01-12T10:00:00.000Z"
+    },
+    {
+      "id": "p-004",
+      "title": "Monitor 24\" Full HD",
+      "description": "Monitor 24\" Full HD pensato per produttività e utilizzo quotidiano.",
+      "price": 145,
+      "originalPrice": 145,
+      "sale": false,
+      "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Monitor+24+Full+HD",
+      "tags": [
+        "monitor",
+        "display",
+        "schermo"
+      ],
+      "createdAt": "2025-01-13T10:00:00.000Z"
+    },
+    {
+      "id": "p-005",
+      "title": "Monitor 27\" QHD",
+      "description": "Monitor 27\" QHD pensato per produttività e utilizzo quotidiano.",
+      "price": 180,
+      "originalPrice": 190,
+      "sale": true,
+      "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Monitor+27+QHD",
+      "tags": [
+        "monitor",
+        "display",
+        "schermo"
+      ],
+      "createdAt": "2025-01-14T10:00:00.000Z"
+    },
+    {
+      "id": "p-006",
+      "title": "Monitor 34\" UltraWide",
+      "description": "Monitor 34\" UltraWide pensato per produttività e utilizzo quotidiano.",
+      "price": 215,
+      "originalPrice": 225,
+      "sale": true,
+      "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Monitor+34+UltraWide",
+      "tags": [
+        "monitor",
+        "display",
+        "schermo"
+      ],
+      "createdAt": "2025-01-15T10:00:00.000Z"
+    },
+    {
+      "id": "p-007",
+      "title": "Mouse Wireless Pro",
+      "description": "Mouse Wireless Pro pensato per produttività e utilizzo quotidiano.",
+      "price": 250,
+      "originalPrice": 250,
+      "sale": false,
+      "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Mouse+Wireless+Pro",
+      "tags": [
+        "mouse",
+        "periferiche"
+      ],
+      "createdAt": "2025-01-16T10:00:00.000Z"
+    },
+    {
+      "id": "p-008",
+      "title": "Mouse Ergonomico Office",
+      "description": "Mouse Ergonomico Office pensato per produttività e utilizzo quotidiano.",
+      "price": 250,
+      "originalPrice": 260,
+      "sale": true,
+      "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Mouse+Ergonomico+Office",
+      "tags": [
+        "mouse",
+        "periferiche"
+      ],
+      "createdAt": "2025-01-17T10:00:00.000Z"
+    },
+    {
+      "id": "p-009",
+      "title": "Tastiera Meccanica Compact",
+      "description": "Tastiera Meccanica Compact pensato per produttività e utilizzo quotidiano.",
+      "price": 285,
+      "originalPrice": 295,
+      "sale": true,
+      "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Tastiera+Meccanica+Compact",
+      "tags": [
+        "tastiera",
+        "periferiche",
+        "meccanica"
+      ],
+      "createdAt": "2025-01-18T10:00:00.000Z"
+    },
+    {
+      "id": "p-010",
+      "title": "Tastiera Wireless Slim",
+      "description": "Tastiera Wireless Slim pensato per produttività e utilizzo quotidiano.",
+      "price": 320,
+      "originalPrice": 320,
+      "sale": false,
+      "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Tastiera+Wireless+Slim",
+      "tags": [
+        "tastiera",
+        "periferiche",
+        "wireless"
+      ],
+      "createdAt": "2025-01-19T10:00:00.000Z"
+    },
+    {
+      "id": "p-011",
+      "title": "Cuffie Wireless Noise Cancelling",
+      "description": "Cuffie Wireless Noise Cancelling pensato per produttività e utilizzo quotidiano.",
+      "price": 355,
+      "originalPrice": 365,
+      "sale": true,
+      "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Cuffie+Wireless+Noise+Cancelling",
+      "tags": [
+        "cuffie",
+        "audio"
+      ],
+      "createdAt": "2025-01-20T10:00:00.000Z"
+    },
+    {
+      "id": "p-012",
+      "title": "Cuffie On-Ear Lightweight",
+      "description": "Cuffie On-Ear Lightweight pensato per produttività e utilizzo quotidiano.",
+      "price": 390,
+      "originalPrice": 400,
+      "sale": true,
+      "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Cuffie+On-Ear+Lightweight",
+      "tags": [
+        "cuffie",
+        "audio"
+      ],
+      "createdAt": "2025-01-21T10:00:00.000Z"
+    },
+    {
+      "id": "p-013",
+      "title": "Docking Station USB-C",
+      "description": "Docking Station USB-C pensato per produttività e utilizzo quotidiano.",
+      "price": 425,
+      "originalPrice": 425,
+      "sale": false,
+      "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Docking+Station+USB-C",
+      "tags": [
+        "usb-c",
+        "dock",
+        "accessori"
+      ],
+      "createdAt": "2025-01-22T10:00:00.000Z"
+    },
+    {
+      "id": "p-014",
+      "title": "Hub USB-C 7 porte",
+      "description": "Hub USB-C 7 porte pensato per produttività e utilizzo quotidiano.",
+      "price": 460,
+      "originalPrice": 470,
+      "sale": true,
+      "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Hub+USB-C+7+porte",
+      "tags": [
+        "usb-c",
+        "dock",
+        "accessori"
+      ],
+      "createdAt": "2025-01-23T10:00:00.000Z"
+    },
+    {
+      "id": "p-015",
+      "title": "Webcam Full HD",
+      "description": "Webcam Full HD pensato per produttività e utilizzo quotidiano.",
+      "price": 460,
+      "originalPrice": 470,
+      "sale": true,
+      "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Webcam+Full+HD",
+      "tags": [
+        "webcam",
+        "videochiamate"
+      ],
+      "createdAt": "2025-01-24T10:00:00.000Z"
+    },
+    {
+      "id": "p-016",
+      "title": "Webcam 4K Streaming",
+      "description": "Webcam 4K Streaming pensato per produttività e utilizzo quotidiano.",
+      "price": 495,
+      "originalPrice": 495,
+      "sale": false,
+      "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Webcam+4K+Streaming",
+      "tags": [
+        "webcam",
+        "videochiamate"
+      ],
+      "createdAt": "2025-01-25T10:00:00.000Z"
+    },
+    {
+      "id": "p-017",
+      "title": "Sedia Ergonomica Office",
+      "description": "Sedia Ergonomica Office pensato per produttività e utilizzo quotidiano.",
+      "price": 530,
+      "originalPrice": 540,
+      "sale": true,
+      "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Sedia+Ergonomica+Office",
+      "tags": [
+        "ufficio",
+        "ergonomia"
+      ],
+      "createdAt": "2025-01-26T10:00:00.000Z"
+    },
+    {
+      "id": "p-018",
+      "title": "Scrivania Regolabile",
+      "description": "Scrivania Regolabile pensato per produttività e utilizzo quotidiano.",
+      "price": 565,
+      "originalPrice": 575,
+      "sale": true,
+      "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Scrivania+Regolabile",
+      "tags": [
+        "scrivania",
+        "regolabile"
+      ],
+      "createdAt": "2025-01-27T10:00:00.000Z"
+    },
+    {
+      "id": "p-019",
+      "title": "Lampada LED da Scrivania",
+      "description": "Lampada LED da Scrivania pensato per produttività e utilizzo quotidiano.",
+      "price": 600,
+      "originalPrice": 600,
+      "sale": false,
+      "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Lampada+LED+da+Scrivania",
+      "tags": [
+        "scrivania",
+        "regolabile",
+        "illuminazione"
+      ],
+      "createdAt": "2025-01-28T10:00:00.000Z"
+    },
+    {
+      "id": "p-020",
+      "title": "Zaino Tech 15\"",
+      "description": "Zaino Tech 15\" pensato per produttività e utilizzo quotidiano.",
+      "price": 635,
+      "originalPrice": 645,
+      "sale": true,
+      "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Zaino+Tech+15",
+      "tags": [
+        "zaino",
+        "trasporto",
+        "laptop"
+      ],
+      "createdAt": "2025-01-29T10:00:00.000Z"
+    },
+    {
+      "id": "p-021",
+      "title": "Laptop Ultra 14\" (21)",
+      "description": "Laptop Ultra 14\" (21) pensato per produttività e utilizzo quotidiano.",
+      "price": 70,
+      "originalPrice": 80,
+      "sale": true,
+      "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Laptop+Ultra+14",
+      "tags": [
+        "laptop",
+        "notebook",
+        "portatile"
+      ],
+      "createdAt": "2025-01-30T10:00:00.000Z"
+    },
+    {
+      "id": "p-022",
+      "title": "Laptop Pro 16\" (22)",
+      "description": "Laptop Pro 16\" (22) pensato per produttività e utilizzo quotidiano.",
+      "price": 70,
+      "originalPrice": 70,
+      "sale": false,
+      "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Laptop+Pro+16",
+      "tags": [
+        "laptop",
+        "notebook",
+        "portatile"
+      ],
+      "createdAt": "2025-01-31T10:00:00.000Z"
+    },
+    {
+      "id": "p-023",
+      "title": "Laptop Student 13\" (23)",
+      "description": "Laptop Student 13\" (23) pensato per produttività e utilizzo quotidiano.",
+      "price": 105,
+      "originalPrice": 115,
+      "sale": true,
+      "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Laptop+Student+13",
+      "tags": [
+        "laptop",
+        "notebook",
+        "portatile"
+      ],
+      "createdAt": "2025-02-01T10:00:00.000Z"
+    },
+    {
+      "id": "p-024",
+      "title": "Monitor 24\" Full HD (24)",
+      "description": "Monitor 24\" Full HD (24) pensato per produttività e utilizzo quotidiano.",
+      "price": 140,
+      "originalPrice": 150,
+      "sale": true,
+      "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Monitor+24+Full+HD",
+      "tags": [
+        "monitor",
+        "display",
+        "schermo"
+      ],
+      "createdAt": "2025-02-02T10:00:00.000Z"
+    },
+    {
+      "id": "p-025",
+      "title": "Monitor 27\" QHD (25)",
+      "description": "Monitor 27\" QHD (25) pensato per produttività e utilizzo quotidiano.",
+      "price": 175,
+      "originalPrice": 175,
+      "sale": false,
+      "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Monitor+27+QHD",
+      "tags": [
+        "monitor",
+        "display",
+        "schermo"
+      ],
+      "createdAt": "2025-02-03T10:00:00.000Z"
+    },
+    {
+      "id": "p-026",
+      "title": "Monitor 34\" UltraWide (26)",
+      "description": "Monitor 34\" UltraWide (26) pensato per produttività e utilizzo quotidiano.",
+      "price": 210,
+      "originalPrice": 220,
+      "sale": true,
+      "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Monitor+34+UltraWide",
+      "tags": [
+        "monitor",
+        "display",
+        "schermo"
+      ],
+      "createdAt": "2025-02-04T10:00:00.000Z"
+    },
+    {
+      "id": "p-027",
+      "title": "Mouse Wireless Pro (27)",
+      "description": "Mouse Wireless Pro (27) pensato per produttività e utilizzo quotidiano.",
+      "price": 245,
+      "originalPrice": 255,
+      "sale": true,
+      "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Mouse+Wireless+Pro",
+      "tags": [
+        "mouse",
+        "periferiche"
+      ],
+      "createdAt": "2025-02-05T10:00:00.000Z"
+    },
+    {
+      "id": "p-028",
+      "title": "Mouse Ergonomico Office (28)",
+      "description": "Mouse Ergonomico Office (28) pensato per produttività e utilizzo quotidiano.",
+      "price": 280,
+      "originalPrice": 280,
+      "sale": false,
+      "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Mouse+Ergonomico+Office",
+      "tags": [
+        "mouse",
+        "periferiche"
+      ],
+      "createdAt": "2025-02-06T10:00:00.000Z"
+    },
+    {
+      "id": "p-029",
+      "title": "Tastiera Meccanica Compact (29)",
+      "description": "Tastiera Meccanica Compact (29) pensato per produttività e utilizzo quotidiano.",
+      "price": 280,
+      "originalPrice": 290,
+      "sale": true,
+      "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Tastiera+Meccanica+Compact",
+      "tags": [
+        "tastiera",
+        "periferiche",
+        "meccanica"
+      ],
+      "createdAt": "2025-02-07T10:00:00.000Z"
+    },
+    {
+      "id": "p-030",
+      "title": "Tastiera Wireless Slim (30)",
+      "description": "Tastiera Wireless Slim (30) pensato per produttività e utilizzo quotidiano.",
+      "price": 315,
+      "originalPrice": 325,
+      "sale": true,
+      "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Tastiera+Wireless+Slim",
+      "tags": [
+        "tastiera",
+        "periferiche",
+        "wireless"
+      ],
+      "createdAt": "2025-02-08T10:00:00.000Z"
+    },
+    {
+      "id": "p-031",
+      "title": "Cuffie Wireless Noise Cancelling (31)",
+      "description": "Cuffie Wireless Noise Cancelling (31) pensato per produttività e utilizzo quotidiano.",
+      "price": 350,
+      "originalPrice": 350,
+      "sale": false,
+      "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Cuffie+Wireless+Noise+Cancelling",
+      "tags": [
+        "cuffie",
+        "audio"
+      ],
+      "createdAt": "2025-02-09T10:00:00.000Z"
+    },
+    {
+      "id": "p-032",
+      "title": "Cuffie On-Ear Lightweight (32)",
+      "description": "Cuffie On-Ear Lightweight (32) pensato per produttività e utilizzo quotidiano.",
+      "price": 385,
+      "originalPrice": 395,
+      "sale": true,
+      "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Cuffie+On-Ear+Lightweight",
+      "tags": [
+        "cuffie",
+        "audio"
+      ],
+      "createdAt": "2025-02-10T10:00:00.000Z"
+    },
+    {
+      "id": "p-033",
+      "title": "Docking Station USB-C (33)",
+      "description": "Docking Station USB-C (33) pensato per produttività e utilizzo quotidiano.",
+      "price": 420,
+      "originalPrice": 430,
+      "sale": true,
+      "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Docking+Station+USB-C",
+      "tags": [
+        "usb-c",
+        "dock",
+        "accessori"
+      ],
+      "createdAt": "2025-02-11T10:00:00.000Z"
+    },
+    {
+      "id": "p-034",
+      "title": "Hub USB-C 7 porte (34)",
+      "description": "Hub USB-C 7 porte (34) pensato per produttività e utilizzo quotidiano.",
+      "price": 455,
+      "originalPrice": 455,
+      "sale": false,
+      "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Hub+USB-C+7+porte",
+      "tags": [
+        "usb-c",
+        "dock",
+        "accessori"
+      ],
+      "createdAt": "2025-02-12T10:00:00.000Z"
+    },
+    {
+      "id": "p-035",
+      "title": "Webcam Full HD (35)",
+      "description": "Webcam Full HD (35) pensato per produttività e utilizzo quotidiano.",
+      "price": 490,
+      "originalPrice": 500,
+      "sale": true,
+      "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Webcam+Full+HD",
+      "tags": [
+        "webcam",
+        "videochiamate"
+      ],
+      "createdAt": "2025-02-13T10:00:00.000Z"
+    },
+    {
+      "id": "p-036",
+      "title": "Webcam 4K Streaming (36)",
+      "description": "Webcam 4K Streaming (36) pensato per produttività e utilizzo quotidiano.",
+      "price": 490,
+      "originalPrice": 500,
+      "sale": true,
+      "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Webcam+4K+Streaming",
+      "tags": [
+        "webcam",
+        "videochiamate"
+      ],
+      "createdAt": "2025-02-14T10:00:00.000Z"
+    },
+    {
+      "id": "p-037",
+      "title": "Sedia Ergonomica Office (37)",
+      "description": "Sedia Ergonomica Office (37) pensato per produttività e utilizzo quotidiano.",
+      "price": 525,
+      "originalPrice": 525,
+      "sale": false,
+      "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Sedia+Ergonomica+Office",
+      "tags": [
+        "ufficio",
+        "ergonomia"
+      ],
+      "createdAt": "2025-02-15T10:00:00.000Z"
+    },
+    {
+      "id": "p-038",
+      "title": "Scrivania Regolabile (38)",
+      "description": "Scrivania Regolabile (38) pensato per produttività e utilizzo quotidiano.",
+      "price": 560,
+      "originalPrice": 570,
+      "sale": true,
+      "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Scrivania+Regolabile",
+      "tags": [
+        "scrivania",
+        "regolabile"
+      ],
+      "createdAt": "2025-02-16T10:00:00.000Z"
+    },
+    {
+      "id": "p-039",
+      "title": "Lampada LED da Scrivania (39)",
+      "description": "Lampada LED da Scrivania (39) pensato per produttività e utilizzo quotidiano.",
+      "price": 595,
+      "originalPrice": 605,
+      "sale": true,
+      "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Lampada+LED+da+Scrivania",
+      "tags": [
+        "scrivania",
+        "regolabile",
+        "illuminazione"
+      ],
+      "createdAt": "2025-02-17T10:00:00.000Z"
+    },
+    {
+      "id": "p-040",
+      "title": "Zaino Tech 15\" (40)",
+      "description": "Zaino Tech 15\" (40) pensato per produttività e utilizzo quotidiano.",
+      "price": 630,
+      "originalPrice": 630,
+      "sale": false,
+      "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Zaino+Tech+15",
+      "tags": [
+        "zaino",
+        "trasporto",
+        "laptop"
+      ],
+      "createdAt": "2025-02-18T10:00:00.000Z"
+    },
+    {
+      "id": "p-041",
+      "title": "Laptop Ultra 14\" (41)",
+      "description": "Laptop Ultra 14\" (41) pensato per produttività e utilizzo quotidiano.",
+      "price": 65,
+      "originalPrice": 75,
+      "sale": true,
+      "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Laptop+Ultra+14",
+      "tags": [
+        "laptop",
+        "notebook",
+        "portatile"
+      ],
+      "createdAt": "2025-02-19T10:00:00.000Z"
+    },
+    {
+      "id": "p-042",
+      "title": "Laptop Pro 16\" (42)",
+      "description": "Laptop Pro 16\" (42) pensato per produttività e utilizzo quotidiano.",
+      "price": 100,
+      "originalPrice": 110,
+      "sale": true,
+      "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Laptop+Pro+16",
+      "tags": [
+        "laptop",
+        "notebook",
+        "portatile"
+      ],
+      "createdAt": "2025-02-20T10:00:00.000Z"
+    },
+    {
+      "id": "p-043",
+      "title": "Laptop Student 13\" (43)",
+      "description": "Laptop Student 13\" (43) pensato per produttività e utilizzo quotidiano.",
+      "price": 100,
+      "originalPrice": 100,
+      "sale": false,
+      "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Laptop+Student+13",
+      "tags": [
+        "laptop",
+        "notebook",
+        "portatile"
+      ],
+      "createdAt": "2025-02-21T10:00:00.000Z"
+    },
+    {
+      "id": "p-044",
+      "title": "Monitor 24\" Full HD (44)",
+      "description": "Monitor 24\" Full HD (44) pensato per produttività e utilizzo quotidiano.",
+      "price": 135,
+      "originalPrice": 145,
+      "sale": true,
+      "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Monitor+24+Full+HD",
+      "tags": [
+        "monitor",
+        "display",
+        "schermo"
+      ],
+      "createdAt": "2025-02-22T10:00:00.000Z"
+    },
+    {
+      "id": "p-045",
+      "title": "Monitor 27\" QHD (45)",
+      "description": "Monitor 27\" QHD (45) pensato per produttività e utilizzo quotidiano.",
+      "price": 170,
+      "originalPrice": 180,
+      "sale": true,
+      "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Monitor+27+QHD",
+      "tags": [
+        "monitor",
+        "display",
+        "schermo"
+      ],
+      "createdAt": "2025-02-23T10:00:00.000Z"
+    },
+    {
+      "id": "p-046",
+      "title": "Monitor 34\" UltraWide (46)",
+      "description": "Monitor 34\" UltraWide (46) pensato per produttività e utilizzo quotidiano.",
+      "price": 205,
+      "originalPrice": 205,
+      "sale": false,
+      "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Monitor+34+UltraWide",
+      "tags": [
+        "monitor",
+        "display",
+        "schermo"
+      ],
+      "createdAt": "2025-02-24T10:00:00.000Z"
+    },
+    {
+      "id": "p-047",
+      "title": "Mouse Wireless Pro (47)",
+      "description": "Mouse Wireless Pro (47) pensato per produttività e utilizzo quotidiano.",
+      "price": 240,
+      "originalPrice": 250,
+      "sale": true,
+      "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Mouse+Wireless+Pro",
+      "tags": [
+        "mouse",
+        "periferiche"
+      ],
+      "createdAt": "2025-02-25T10:00:00.000Z"
+    },
+    {
+      "id": "p-048",
+      "title": "Mouse Ergonomico Office (48)",
+      "description": "Mouse Ergonomico Office (48) pensato per produttività e utilizzo quotidiano.",
+      "price": 275,
+      "originalPrice": 285,
+      "sale": true,
+      "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Mouse+Ergonomico+Office",
+      "tags": [
+        "mouse",
+        "periferiche"
+      ],
+      "createdAt": "2025-02-26T10:00:00.000Z"
+    },
+    {
+      "id": "p-049",
+      "title": "Tastiera Meccanica Compact (49)",
+      "description": "Tastiera Meccanica Compact (49) pensato per produttività e utilizzo quotidiano.",
+      "price": 310,
+      "originalPrice": 310,
+      "sale": false,
+      "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Tastiera+Meccanica+Compact",
+      "tags": [
+        "tastiera",
+        "periferiche",
+        "meccanica"
+      ],
+      "createdAt": "2025-02-27T10:00:00.000Z"
+    },
+    {
+      "id": "p-050",
+      "title": "Tastiera Wireless Slim (50)",
+      "description": "Tastiera Wireless Slim (50) pensato per produttività e utilizzo quotidiano.",
+      "price": 310,
+      "originalPrice": 320,
+      "sale": true,
+      "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Tastiera+Wireless+Slim",
+      "tags": [
+        "tastiera",
+        "periferiche",
+        "wireless"
+      ],
+      "createdAt": "2025-02-28T10:00:00.000Z"
+    }
+  ],
+  "orders": [
+    {
+      "id": "o-001",
+      "customerName": "Mario Rossi",
+      "email": "mario.rossi@example.com",
+      "items": [
+        {
+          "productId": "p-001",
+          "quantity": 1,
+          "unitPrice": 899.99
+        },
+        {
+          "productId": "p-005",
+          "quantity": 2,
+          "unitPrice": 49.9
+        }
+      ],
+      "total": 999.79,
+      "createdAt": "2025-01-20T09:00:00.000Z"
+    },
+    {
+      "customer": {
+        "firstName": "qweq",
+        "lastName": "qewqew",
+        "email": "qweeq@dfa"
+      },
+      "address": {
+        "street": "qweeqw",
+        "city": "qeqweq",
+        "zip": "11111"
+      },
+      "items": [
+        {
+          "id": "p-001",
+          "title": "Laptop Ultra 14\"",
+          "description": "Laptop Ultra 14\" pensato per produttività e utilizzo quotidiano.",
+          "price": 40,
+          "originalPrice": 40,
+          "sale": false,
+          "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Laptop+Ultra+14",
+          "tags": [
+            "laptop",
+            "notebook",
+            "portatile"
+          ],
+          "createdAt": "2025-01-10T10:00:00.000Z"
+        },
+        {
+          "id": "p-002",
+          "title": "Laptop Pro 16\"",
+          "description": "Laptop Pro 16\" pensato per produttività e utilizzo quotidiano.",
+          "price": 75,
+          "originalPrice": 85,
+          "sale": true,
+          "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Laptop+Pro+16",
+          "tags": [
+            "laptop",
+            "notebook",
+            "portatile"
+          ],
+          "createdAt": "2025-01-11T10:00:00.000Z"
+        },
+        {
+          "id": "p-003",
+          "title": "Laptop Student 13\"",
+          "description": "Laptop Student 13\" pensato per produttività e utilizzo quotidiano.",
+          "price": 110,
+          "originalPrice": 120,
+          "sale": true,
+          "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Laptop+Student+13",
+          "tags": [
+            "laptop",
+            "notebook",
+            "portatile"
+          ],
+          "createdAt": "2025-01-12T10:00:00.000Z"
+        },
+        {
+          "id": "p-004",
+          "title": "Monitor 24\" Full HD",
+          "description": "Monitor 24\" Full HD pensato per produttività e utilizzo quotidiano.",
+          "price": 145,
+          "originalPrice": 145,
+          "sale": false,
+          "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Monitor+24+Full+HD",
+          "tags": [
+            "monitor",
+            "display",
+            "schermo"
+          ],
+          "createdAt": "2025-01-13T10:00:00.000Z"
+        },
+        {
+          "id": "p-005",
+          "title": "Monitor 27\" QHD",
+          "description": "Monitor 27\" QHD pensato per produttività e utilizzo quotidiano.",
+          "price": 180,
+          "originalPrice": 190,
+          "sale": true,
+          "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Monitor+27+QHD",
+          "tags": [
+            "monitor",
+            "display",
+            "schermo"
+          ],
+          "createdAt": "2025-01-14T10:00:00.000Z"
+        }
+      ],
+      "total": 550,
+      "createdAt": "2025-11-30T18:13:08.627Z",
+      "id": "jUYOPRh"
+    },
+    {
+      "customer": {
+        "firstName": "asdasd",
+        "lastName": "asdas",
+        "email": "asdas@dfas"
+      },
+      "address": {
+        "street": "asd",
+        "city": "asdasdad",
+        "zip": "10111"
+      },
+      "items": [
+        {
+          "id": "p-001",
+          "title": "Laptop Ultra 14\"",
+          "description": "Laptop Ultra 14\" pensato per produttività e utilizzo quotidiano.",
+          "price": 40,
+          "originalPrice": 40,
+          "sale": false,
+          "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Laptop+Ultra+14",
+          "tags": [
+            "laptop",
+            "notebook",
+            "portatile"
+          ],
+          "createdAt": "2025-01-10T10:00:00.000Z"
+        },
+        {
+          "id": "p-002",
+          "title": "Laptop Pro 16\"",
+          "description": "Laptop Pro 16\" pensato per produttività e utilizzo quotidiano.",
+          "price": 75,
+          "originalPrice": 85,
+          "sale": true,
+          "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Laptop+Pro+16",
+          "tags": [
+            "laptop",
+            "notebook",
+            "portatile"
+          ],
+          "createdAt": "2025-01-11T10:00:00.000Z"
+        },
+        {
+          "id": "p-003",
+          "title": "Laptop Student 13\"",
+          "description": "Laptop Student 13\" pensato per produttività e utilizzo quotidiano.",
+          "price": 110,
+          "originalPrice": 120,
+          "sale": true,
+          "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Laptop+Student+13",
+          "tags": [
+            "laptop",
+            "notebook",
+            "portatile"
+          ],
+          "createdAt": "2025-01-12T10:00:00.000Z"
+        },
+        {
+          "id": "p-004",
+          "title": "Monitor 24\" Full HD",
+          "description": "Monitor 24\" Full HD pensato per produttività e utilizzo quotidiano.",
+          "price": 145,
+          "originalPrice": 145,
+          "sale": false,
+          "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Monitor+24+Full+HD",
+          "tags": [
+            "monitor",
+            "display",
+            "schermo"
+          ],
+          "createdAt": "2025-01-13T10:00:00.000Z"
+        },
+        {
+          "id": "p-005",
+          "title": "Monitor 27\" QHD",
+          "description": "Monitor 27\" QHD pensato per produttività e utilizzo quotidiano.",
+          "price": 180,
+          "originalPrice": 190,
+          "sale": true,
+          "thumbnail": "https://dummyimage.com/600x400/000000/fff.jpg&text=Monitor+27+QHD",
+          "tags": [
+            "monitor",
+            "display",
+            "schermo"
+          ],
+          "createdAt": "2025-01-14T10:00:00.000Z"
+        }
+      ],
+      "total": 550,
+      "createdAt": "2025-11-30T18:25:27.872Z",
+      "id": "-dBRNe9"
+    }
+  ]
+}

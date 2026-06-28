@@ -1,0 +1,37 @@
+FROM ruby:3.4.7-slim
+
+# Install dependencies
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y \
+    build-essential \
+    curl \
+    git \
+    libvips \
+    libyaml-dev \
+    pkg-config \
+    sqlite3 && \
+    rm -rf /var/lib/apt/lists /var/cache/apt/archives
+
+# Create a non-root user with same UID/GID as host user
+ARG USER_ID=1000
+ARG GROUP_ID=1000
+RUN groupadd -g ${GROUP_ID} rails && \
+    useradd -m -u ${USER_ID} -g rails rails
+
+WORKDIR /rails
+
+# Install gems as root (needed for system-level installation)
+COPY Gemfile Gemfile.lock ./
+RUN bundle install
+
+# Copy application code and set ownership
+COPY --chown=rails:rails . .
+
+# Expose port
+EXPOSE 3000
+
+# Switch to non-root user
+USER rails
+
+# Start Rails server
+CMD ["./bin/rails", "server", "-b", "0.0.0.0", "-p", "3000"]

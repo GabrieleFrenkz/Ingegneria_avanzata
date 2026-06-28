@@ -1,0 +1,384 @@
+<div class="admin-dashboard">
+  <div class="dashboard-container">
+    <!-- Sidebar Menu -->
+    <nav class="sidebar">
+      <div class="sidebar-header">
+        <mat-icon>admin_panel_settings</mat-icon>
+        <h2>Pannello Admin</h2>
+      </div>
+
+      <div class="menu-items">
+        <button class="menu-item"
+                [class.active]="activeSection() === 'statistics'"
+                (click)="setActiveSection('statistics')">
+          <mat-icon>bar_chart</mat-icon>
+          <span>Statistiche</span>
+        </button>
+
+        <button class="menu-item"
+                [class.active]="activeSection() === 'products'"
+                (click)="setActiveSection('products')">
+          <mat-icon>inventory_2</mat-icon>
+          <span>Gestione Prodotti</span>
+        </button>
+
+        <button class="menu-item"
+                [class.active]="activeSection() === 'orders'"
+                (click)="setActiveSection('orders')">
+          <mat-icon>shopping_bag</mat-icon>
+          <span>Storico Ordini</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <!-- Statistics Section -->
+      @if (activeSection() === 'statistics') {
+        <div class="section-header">
+          <h1>Statistiche</h1>
+        </div>
+
+        @if (stats()) {
+          <div class="stats-grid">
+            <mat-card class="stat-card">
+              <mat-icon class="stat-icon">shopping_cart</mat-icon>
+              <div class="stat-info">
+                <div class="stat-value">{{ stats()!.total_orders }}</div>
+                <div class="stat-label">Ordini Totali</div>
+              </div>
+            </mat-card>
+
+            <mat-card class="stat-card revenue">
+              <mat-icon class="stat-icon">euro</mat-icon>
+              <div class="stat-info">
+                <div class="stat-value">${{ stats()!.total_revenue.toFixed(2) }}</div>
+                <div class="stat-label">Ricavi Totali</div>
+              </div>
+            </mat-card>
+
+            <mat-card class="stat-card">
+              <mat-icon class="stat-icon">people</mat-icon>
+              <div class="stat-info">
+                <div class="stat-value">{{ stats()!.total_users }}</div>
+                <div class="stat-label">Utenti Totali</div>
+              </div>
+            </mat-card>
+
+            <mat-card class="stat-card">
+              <mat-icon class="stat-icon">inventory</mat-icon>
+              <div class="stat-info">
+                <div class="stat-value">{{ stats()!.total_products }}</div>
+                <div class="stat-label">Prodotti Totali</div>
+              </div>
+            </mat-card>
+
+            <mat-card class="stat-card warning">
+              <mat-icon class="stat-icon">warning</mat-icon>
+              <div class="stat-info">
+                <div class="stat-value">{{ stats()!.low_stock_products }}</div>
+                <div class="stat-label">Prodotti Sotto Scorta</div>
+              </div>
+            </mat-card>
+          </div>
+
+          @if (stats()!.recent_orders.length > 0) {
+            <mat-card class="recent-orders-card">
+              <mat-card-header>
+                <mat-card-title>Ordini Recenti</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <table mat-table [dataSource]="stats()!.recent_orders">
+                  <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef>ID Ordine</th>
+                    <td mat-cell *matCellDef="let order">#{{ order.id }}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="customer">
+                    <th mat-header-cell *matHeaderCellDef>Cliente</th>
+                    <td mat-cell *matCellDef="let order">
+                      {{ order.customer?.firstName }} {{ order.customer?.lastName }}
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="total">
+                    <th mat-header-cell *matHeaderCellDef>Totale</th>
+                    <td mat-cell *matCellDef="let order">${{ order.total }}</td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="createdAt">
+                    <th mat-header-cell *matHeaderCellDef>Data</th>
+                    <td mat-cell *matCellDef="let order">{{ order.createdAt | date:'short' }}</td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="recentOrdersColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: recentOrdersColumns"></tr>
+                </table>
+              </mat-card-content>
+            </mat-card>
+          }
+        } @else {
+          <div class="loading-container">
+            <mat-spinner></mat-spinner>
+            <p>Caricamento statistiche...</p>
+          </div>
+        }
+      }
+
+      <!-- Products Management Section -->
+      @if (activeSection() === 'products') {
+        <div class="section-header">
+          <h1>Gestione Prodotti</h1>
+        </div>
+
+        <mat-card class="product-form-card">
+          <mat-card-header>
+            <mat-card-title>{{ editingProduct() ? 'Modifica Prodotto' : 'Aggiungi Nuovo Prodotto' }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <form [formGroup]="productForm" (ngSubmit)="onSaveProduct()">
+              <div class="form-row">
+                <mat-form-field appearance="outline">
+                  <mat-label>ID Prodotto</mat-label>
+                  <input matInput formControlName="id" [readonly]="!!editingProduct()" />
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                  <mat-label>Titolo</mat-label>
+                  <input matInput formControlName="title" />
+                </mat-form-field>
+              </div>
+
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>Descrizione</mat-label>
+                <textarea matInput formControlName="description" rows="3"></textarea>
+              </mat-form-field>
+
+              <div class="form-row">
+                <mat-form-field appearance="outline">
+                  <mat-label>Prezzo</mat-label>
+                  <input matInput type="number" formControlName="price" />
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                  <mat-label>Prezzo Originale</mat-label>
+                  <input matInput type="number" formControlName="original_price" />
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                  <mat-label>Quantità</mat-label>
+                  <input matInput type="number" formControlName="quantity" />
+                </mat-form-field>
+              </div>
+
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>URL Immagine</mat-label>
+                <input matInput formControlName="thumbnail" />
+              </mat-form-field>
+
+              <div class="form-actions">
+                <button mat-raised-button color="primary" type="submit" [disabled]="!productForm.valid">
+                  {{ editingProduct() ? 'Aggiorna' : 'Crea' }} Prodotto
+                </button>
+                @if (editingProduct()) {
+                  <button mat-stroked-button type="button" (click)="resetForm()">Annulla</button>
+                }
+              </div>
+            </form>
+          </mat-card-content>
+        </mat-card>
+
+        @if (loading()) {
+          <div class="loading-container">
+            <mat-spinner></mat-spinner>
+            <p>Caricamento prodotti...</p>
+          </div>
+        } @else {
+          <mat-card class="products-table-card">
+            <mat-card-header>
+              <mat-card-title>Lista Prodotti</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <table mat-table [dataSource]="products()">
+                <ng-container matColumnDef="id">
+                  <th mat-header-cell *matHeaderCellDef>ID</th>
+                  <td mat-cell *matCellDef="let product">{{ product.id }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="title">
+                  <th mat-header-cell *matHeaderCellDef>Titolo</th>
+                  <td mat-cell *matCellDef="let product">{{ product.title }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="price">
+                  <th mat-header-cell *matHeaderCellDef>Prezzo</th>
+                  <td mat-cell *matCellDef="let product">${{ product.price }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="quantity">
+                  <th mat-header-cell *matHeaderCellDef>Quantità</th>
+                  <td mat-cell *matCellDef="let product">
+                    <span [class.low-stock]="(product.quantity || 0) < 10">
+                      {{ product.quantity || 0 }}
+                    </span>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="actions">
+                  <th mat-header-cell *matHeaderCellDef>Azioni</th>
+                  <td mat-cell *matCellDef="let product">
+                    <button mat-icon-button (click)="onAdjustQuantity(product.id, 10)" title="Aggiungi 10">
+                      <mat-icon>add</mat-icon>
+                    </button>
+                    <button mat-icon-button (click)="onAdjustQuantity(product.id, -10)" title="Rimuovi 10">
+                      <mat-icon>remove</mat-icon>
+                    </button>
+                    <button mat-icon-button (click)="onEditProduct(product)" title="Modifica">
+                      <mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-icon-button color="warn" (click)="onDeleteProduct(product.id)" title="Elimina">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="productsColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: productsColumns"></tr>
+              </table>
+            </mat-card-content>
+          </mat-card>
+        }
+      }
+
+      <!-- Orders History Section -->
+      @if (activeSection() === 'orders') {
+        <div class="section-header">
+          <h1>Storico Ordini</h1>
+        </div>
+
+        @if (orders()) {
+          <div class="orders-stats">
+            <mat-card class="stat-card">
+              <mat-icon class="stat-icon">shopping_cart</mat-icon>
+              <div class="stat-info">
+                <div class="stat-value">{{ orders()!.stats.total_orders }}</div>
+                <div class="stat-label">Ordini Totali</div>
+              </div>
+            </mat-card>
+
+            <mat-card class="stat-card revenue">
+              <mat-icon class="stat-icon">euro</mat-icon>
+              <div class="stat-info">
+                <div class="stat-value">${{ orders()!.stats.total_revenue.toFixed(2) }}</div>
+                <div class="stat-label">Ricavi Totali</div>
+              </div>
+            </mat-card>
+
+            <mat-card class="stat-card">
+              <mat-icon class="stat-icon">person</mat-icon>
+              <div class="stat-info">
+                <div class="stat-value">{{ orders()!.stats.orders_by_status.with_user }}</div>
+                <div class="stat-label">Ordini Utenti</div>
+              </div>
+            </mat-card>
+
+            <mat-card class="stat-card">
+              <mat-icon class="stat-icon">person_outline</mat-icon>
+              <div class="stat-info">
+                <div class="stat-value">{{ orders()!.stats.orders_by_status.guest }}</div>
+                <div class="stat-label">Ordini Ospiti</div>
+              </div>
+            </mat-card>
+          </div>
+
+          <div class="orders-list">
+            <mat-card *ngIf="orders()!.orders.length === 0" class="empty-state">
+              <mat-card-content>
+                <mat-icon>shopping_bag</mat-icon>
+                <h2>Nessun ordine trovato</h2>
+                <p>Non ci sono ancora ordini nel sistema.</p>
+              </mat-card-content>
+            </mat-card>
+
+            <mat-accordion *ngIf="orders()!.orders.length > 0">
+              <mat-expansion-panel *ngFor="let order of orders()!.orders">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    <div class="order-header">
+                      <span class="order-id">Ordine #{{ order.id }}</span>
+                      <span class="order-date">{{ formatOrderDate(order.createdAt) }}</span>
+                    </div>
+                  </mat-panel-title>
+                  <mat-panel-description>
+                    <div class="order-summary">
+                      <span class="order-items">{{ getOrderItemsCount(order) }} articoli</span>
+                      <span class="order-total">€{{ order.total }}</span>
+                    </div>
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+
+                <div class="order-details">
+                  <div class="section">
+                    <h3>Informazioni Cliente</h3>
+                    @if (order.user) {
+                      <p><strong>Nome:</strong> {{ order.user.firstName || 'N/D' }} {{ order.user.lastName || '' }}</p>
+                      <p><strong>Email:</strong> {{ order.user.email || 'N/D' }}</p>
+                      <p><strong>Tipo:</strong> Utente Registrato</p>
+                    } @else {
+                      <p><strong>Nome:</strong> {{ order.customer?.firstName || 'N/D' }} {{ order.customer?.lastName || '' }}</p>
+                      <p><strong>Email:</strong> {{ order.customer?.email || 'N/D' }}</p>
+                      <p><strong>Tipo:</strong> Ospite</p>
+                    }
+                  </div>
+
+                  <mat-divider></mat-divider>
+
+                  <div class="section">
+                    <h3>Indirizzo di Spedizione</h3>
+                    <p>{{ order.address?.street || 'N/D' }}</p>
+                    <p>{{ order.address?.city || 'N/D' }}, {{ order.address?.zip || 'N/D' }}</p>
+                  </div>
+
+                  <mat-divider></mat-divider>
+
+                  <div class="section">
+                    <h3>Articoli Ordinati</h3>
+                    <div class="order-items-list">
+                      <div *ngFor="let item of order.orderItems" class="order-item">
+                        <div class="item-info">
+                          <span class="item-name">{{ item.product?.title || 'Prodotto #' + item.productId }}</span>
+                          <span class="item-quantity">x{{ item.quantity }}</span>
+                        </div>
+                        <span class="item-price">€{{ (item.unitPrice * item.quantity).toFixed(2) }}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <mat-divider></mat-divider>
+
+                  <div class="section total-section">
+                    <div class="total-row">
+                      <h3>Totale</h3>
+                      <p class="total-amount">€{{ order.total }}</p>
+                    </div>
+                    <div class="admin-actions">
+                      <button mat-raised-button color="warn" (click)="onDeleteOrder(order.id)">
+                        <mat-icon>delete</mat-icon>
+                        Elimina Ordine
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+          </div>
+        } @else {
+          <div class="loading-container">
+            <mat-spinner></mat-spinner>
+            <p>Caricamento ordini...</p>
+          </div>
+        }
+      }
+    </main>
+  </div>
+</div>

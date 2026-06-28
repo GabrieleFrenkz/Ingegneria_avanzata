@@ -1,0 +1,46 @@
+<section class="container">
+    <header class="header">
+        <h2>Prodotti</h2>
+    </header>
+    <form class="filters">
+
+        <mat-form-field class="example-form-field">
+            <mat-label>Cerca</mat-label>
+            <input matInput type="search" name="title" placeholder="Cerca per titolo"
+                (input)="updateTitle($any($event.target).value)" />
+        </mat-form-field>
+        <mat-form-field class="example-form-field">
+            <mat-label>Ordina per</mat-label>
+            <mat-select [value]="currentSort$ | async" (selectionChange)="updateSort($any($event.value))">
+                <mat-option value="priceAsc">Prezzo (Crescente)</mat-option>
+                <mat-option value="priceDesc">Prezzo (Decrescente)</mat-option>
+                <mat-option value="dateAsc">Data (Crescente)</mat-option>
+                <mat-option value="dateDesc">Data (Decrescente)</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field class="example-form-field">
+            <mat-label>Prezzo minimo</mat-label>
+            <input matInput type="number" name="priceMin" placeholder="Prezzo minimo"
+                (input)="updateMin($any($event.target).value)" max="10000" step="0.1" />
+        </mat-form-field>
+        <mat-form-field class="example-form-field">
+            <mat-label>Prezzo massimo</mat-label>
+            <input matInput type="number" name="priceMax" placeholder="Prezzo massimo"
+                (input)="updateMax($any($event.target).value)" min="0" step="0.1" />
+        </mat-form-field>
+
+    </form>
+    <mat-paginator [length]="(filteredProducts$ | async)?.length || 0" [pageSize]="pageSize"
+        [pageIndex]="((page$ | async)||1)-1" aria-label="Select page" (page)="onPage($event)">
+    </mat-paginator>
+
+    <div class="products-grid">
+        @for (p of paged$ | async; track p.id) {
+            <app-product-card [product]="p" (add)="onAddToCart($event)">
+            </app-product-card>
+        } @empty {
+            <p>Nessun prodotto trovato</p>
+        }
+    </div>
+
+</section>

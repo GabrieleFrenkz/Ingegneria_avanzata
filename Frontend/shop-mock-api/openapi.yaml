@@ -1,0 +1,190 @@
+openapi: 3.0.3
+info:
+  title: Shop Mock API
+  version: 1.0.0
+  description: >
+    Mock REST API per corso Angular, basata su json-server.
+    Espone risorse `products` e `orders` per esercizi di catalogo, dettaglio prodotto e checkout.
+servers:
+  - url: http://localhost:3000
+    description: Sviluppo locale
+  - url: https://shop-mock-api.example.com
+    description: Esempio di deploy (Render/altro)
+
+paths:
+  /api/products:
+    get:
+      summary: Elenca tutti i prodotti
+      tags: [Products]
+      responses:
+        '200':
+          description: Lista di prodotti disponibili nel catalogo.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+
+  /api/products/{id}:
+    get:
+      summary: Dettaglio di un singolo prodotto
+      tags: [Products]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: ID del prodotto
+      responses:
+        '200':
+          description: Prodotto trovato.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '404':
+          description: Prodotto non trovato.
+
+  /api/orders:
+    get:
+      summary: Elenca tutti gli ordini
+      tags: [Orders]
+      responses:
+        '200':
+          description: Lista di ordini.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+    post:
+      summary: Crea un nuovo ordine
+      tags: [Orders]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewOrder'
+      responses:
+        '201':
+          description: Ordine creato.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+
+components:
+  schemas:
+    
+Product:
+  type: object
+  required:
+    - id
+    - title
+    - description
+    - price
+    - originalPrice
+    - sale
+    - createdAt
+  properties:
+    id:
+      type: string
+      example: p-001
+    title:
+      type: string
+      example: Laptop Ultra 14"
+    description:
+      type: string
+      example: Notebook leggero per uso quotidiano e studio universitario.
+    price:
+      type: number
+      format: float
+      example: 899.99
+    originalPrice:
+      type: number
+      format: float
+      example: 999.99
+    sale:
+      type: boolean
+      example: true
+    thumbnail:
+      type: string
+      nullable: true
+      example: /assets/img/laptop-ultra-14.jpg
+    tags:
+      type: array
+      items:
+        type: string
+      example: ["laptop", "studenti", "portatile"]
+    createdAt:
+      type: string
+      format: date-time
+      example: 2025-01-10T10:00:00.000Z
+
+OrderItem:
+    type: object
+    required:
+      - productId
+      - quantity
+      - unitPrice
+    properties:
+      productId:
+        type: string
+        example: p-001
+      quantity:
+        type: integer
+        minimum: 1
+        example: 2
+      unitPrice:
+        type: number
+        format: float
+        example: 49.90
+      lineTotal:
+        type: number
+        format: float
+        description: Totale per la singola riga (quantity * unitPrice).
+        example: 99.80
+
+NewOrder:
+    type: object
+    required:
+      - customerName
+      - email
+      - items
+    properties:
+      customerName:
+        type: string
+        example: Mario Rossi
+      email:
+        type: string
+        format: email
+        example: mario.rossi@example.com
+      items:
+        type: array
+        items:
+          $ref: '#/components/schemas/OrderItem'
+      total:
+        type: number
+        format: float
+        description: Totale complessivo dell'ordine.
+        example: 899.99
+
+Order:
+  allOf:
+    - $ref: '#/components/schemas/NewOrder'
+    - type: object
+      required:
+        - id
+        - createdAt
+      properties:
+        id:
+          type: integer
+          example: 1
+        createdAt:
+          type: string
+          format: date-time
+          example: 2025-01-20T09:00:00.000Z

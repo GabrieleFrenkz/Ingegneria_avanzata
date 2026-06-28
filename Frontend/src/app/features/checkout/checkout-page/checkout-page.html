@@ -1,0 +1,112 @@
+<form class="checkout-form" [formGroup]="form" (submit)="onSubmit()">
+    <section formGroupName="customer">
+        <h2>Dati cliente</h2>
+        <mat-form-field appearance="outline">
+            <mat-label>Nome</mat-label>
+            <input matInput formControlName="firstName" required>
+            @if(hasError('customer.firstName','required'))
+            {
+            <mat-error>
+                Il nome è obbligatorio
+            </mat-error>}
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Cognome</mat-label>
+            <input matInput formControlName="lastName" required>
+            @if(hasError('customer.lastName','required'))
+            {
+            <mat-error>
+                Il cognome è obbligatorio
+            </mat-error>}
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" required type="email">
+            @if(hasError('customer.email','required'))
+            {
+            <mat-error>
+                L'email è obbligatoria
+            </mat-error>}
+            @if(hasError('customer.email','email'))
+            {
+            <mat-error>
+                Inserisci un'email valida
+            </mat-error>}
+        </mat-form-field>
+    </section>
+
+    <section formGroupName="address">
+        <h2>Indirizzo</h2>
+        <mat-form-field appearance="outline">
+            <mat-label>Via</mat-label>
+            <input matInput formControlName="street" required>
+            @if(hasError('address.street','required'))
+            {
+            <mat-error>
+                La via è obbligatoria
+            </mat-error>}
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>Città</mat-label>
+            <input matInput formControlName="city" required>
+            @if(hasError('address.city','required'))
+            {
+            <mat-error>
+                La città è obbligatoria
+            </mat-error>}
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+            <mat-label>CAP</mat-label>
+            <input matInput formControlName="zip" required>
+            @if(hasError('address.zip','required'))
+            {
+            <mat-error>
+                Il CAP è obbligatorio
+            </mat-error>}
+            @if(hasError('address.zip','pattern'))
+            {
+            <mat-error>
+                Inserisci un CAP valido
+            </mat-error>}
+        </mat-form-field>
+    </section>
+
+
+    <h2>Metodo di spedizione</h2>
+    <mat-select formControlName="shippingMethod" required>
+        <mat-option value="standard">Standard</mat-option>
+        <mat-option value="express">Express</mat-option>
+    </mat-select>
+    <mat-checkbox formControlName="privacy" required>
+        Accetto i termini e le condizioni
+    </mat-checkbox>
+    <button mat-raised-button color="primary" type="submit" [disabled]="loading">
+        @if(loading) {
+            Elaborazione in corso...
+        } @else {
+            Completa l'ordine
+        }
+    </button>
+
+    @if(orderSuccess) {
+    <div class="success-message" role="status" aria-live="polite">
+        <p>
+            Ordine completato con successo! Grazie per il tuo acquisto.
+        </p>
+    </div>
+    }
+
+    @if(orderError && errorMessage) {
+    <div class="error-message" role="alert" aria-live="assertive">
+        <p>{{ errorMessage }}</p>
+    </div>
+    }
+
+    @if(form.invalid && showSummary) {
+    <div class="error-summary" role="status" aria-live="polite">
+        <p>
+            Il form contiene errori. Controlla i campi evidenziati.
+        </p>
+    </div>
+    }
+</form>

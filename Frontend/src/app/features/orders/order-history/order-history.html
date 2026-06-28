@@ -1,0 +1,145 @@
+<div class="order-history-container">
+  <h1 class="page-title">I Miei Ordini</h1>
+
+  <!-- Filtri -->
+  <mat-card class="filters-card">
+    <mat-card-header>
+      <mat-card-title>Filtri</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="filters-grid">
+        <!-- Filtro data inizio -->
+        <mat-form-field appearance="outline">
+          <mat-label>Data Inizio</mat-label>
+          <input matInput [matDatepicker]="startPicker" [(ngModel)]="startDate">
+          <mat-datepicker-toggle matIconSuffix [for]="startPicker"></mat-datepicker-toggle>
+          <mat-datepicker #startPicker></mat-datepicker>
+        </mat-form-field>
+
+        <!-- Filtro data fine -->
+        <mat-form-field appearance="outline">
+          <mat-label>Data Fine</mat-label>
+          <input matInput [matDatepicker]="endPicker" [(ngModel)]="endDate">
+          <mat-datepicker-toggle matIconSuffix [for]="endPicker"></mat-datepicker-toggle>
+          <mat-datepicker #endPicker></mat-datepicker>
+        </mat-form-field>
+
+        <!-- Filtro totale minimo -->
+        <mat-form-field appearance="outline">
+          <mat-label>Totale Minimo</mat-label>
+          <input matInput type="number" [(ngModel)]="minTotal" placeholder="0.00">
+          <span matTextPrefix>€&nbsp;</span>
+        </mat-form-field>
+
+        <!-- Filtro totale massimo -->
+        <mat-form-field appearance="outline">
+          <mat-label>Totale Massimo</mat-label>
+          <input matInput type="number" [(ngModel)]="maxTotal" placeholder="0.00">
+          <span matTextPrefix>€&nbsp;</span>
+        </mat-form-field>
+      </div>
+
+      <div class="filter-actions">
+        <button mat-raised-button color="primary" (click)="applyFilters()">
+          <mat-icon>filter_list</mat-icon>
+          Applica Filtri
+        </button>
+        <button mat-stroked-button (click)="clearFilters()">
+          <mat-icon>clear</mat-icon>
+          Pulisci Filtri
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Loading spinner -->
+  <div *ngIf="loading()" class="loading-container">
+    <mat-spinner></mat-spinner>
+    <p>Caricamento ordini...</p>
+  </div>
+
+  <!-- Error message -->
+  <mat-card *ngIf="error()" class="error-card">
+    <mat-card-content>
+      <div class="error-message">
+        <mat-icon>error</mat-icon>
+        <p>{{ error() }}</p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Lista ordini -->
+  <div *ngIf="!loading() && !error()" class="orders-list">
+    <!-- Nessun ordine -->
+    <mat-card *ngIf="orders().length === 0" class="empty-state">
+      <mat-card-content>
+        <mat-icon>shopping_bag</mat-icon>
+        <h2>Nessun ordine trovato</h2>
+        <p>Non hai ancora effettuato ordini o nessun ordine corrisponde ai tuoi filtri.</p>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Accordion con gli ordini -->
+    <mat-accordion *ngIf="orders().length > 0">
+      <mat-expansion-panel *ngFor="let order of orders()">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <div class="order-header">
+              <span class="order-id">Ordine #{{ order.id }}</span>
+              <span class="order-date">{{ formatOrderDate(order.createdAt) }}</span>
+            </div>
+          </mat-panel-title>
+          <mat-panel-description>
+            <div class="order-summary">
+              <span class="order-items">{{ getOrderItemsCount(order) }} articoli</span>
+              <span class="order-total">€{{ order.total }}</span>
+            </div>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <!-- Dettagli ordine -->
+        <div class="order-details">
+          <!-- Informazioni cliente -->
+          <div class="section">
+            <h3>Informazioni Cliente</h3>
+            <p><strong>Nome:</strong> {{ order.customer?.firstName || 'N/D' }} {{ order.customer?.lastName || '' }}</p>
+            <p><strong>Email:</strong> {{ order.customer?.email || 'N/D' }}</p>
+          </div>
+
+          <mat-divider></mat-divider>
+
+          <!-- Indirizzo di spedizione -->
+          <div class="section">
+            <h3>Indirizzo di Spedizione</h3>
+            <p>{{ order.address?.street || 'N/D' }}</p>
+            <p>{{ order.address?.city || 'N/D' }}, {{ order.address?.zip || 'N/D' }}</p>
+          </div>
+
+          <mat-divider></mat-divider>
+
+          <!-- Prodotti ordinati -->
+          <div class="section">
+            <h3>Articoli Ordinati</h3>
+            <div class="order-items-list">
+              <div *ngFor="let item of order.orderItems" class="order-item">
+                <div class="item-info">
+                  <span class="item-name">{{ item.product?.title || 'Prodotto #' + item.productId }}</span>
+                  <span class="item-quantity">x{{ item.quantity }}</span>
+                </div>
+                <span class="item-price">€{{ (item.unitPrice * item.quantity).toFixed(2) }}</span>
+              </div>
+            </div>
+          </div>
+
+          <mat-divider></mat-divider>
+
+          <!-- Totale -->
+          <div class="section total-section">
+            <h3>Totale</h3>
+            <p class="total-amount">€{{ order.total }}</p>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</div>

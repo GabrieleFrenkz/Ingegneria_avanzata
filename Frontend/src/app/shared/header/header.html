@@ -1,0 +1,68 @@
+<mat-toolbar class="header">
+  <button matIconButton class="MenuButton" aria-label="Menu button" (click)="goToHome()">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <span class="Title">L'HOSHI DELLA TECH</span>
+
+  <span class="spacer"></span>
+
+  @if (isLoggedIn()) {
+    <!-- User is logged in -->
+    @if (isAdmin()) {
+      <button mat-button (click)="goToAdmin()">
+        <mat-icon>admin_panel_settings</mat-icon>
+        Pannello Admin
+      </button>
+    }
+
+    <button matIconButton
+            aria-label="Lista desideri"
+            (click)="goToWishlist()"
+            [matBadge]="wishlistItemCount()"
+            [matBadgeHidden]="wishlistItemCount() === 0"
+            matBadgeColor="accent">
+      <mat-icon>favorite</mat-icon>
+    </button>
+
+    <button matIconButton
+            aria-label="Carrello"
+            (click)="goToCart()"
+            [matBadge]="cartItemCount()"
+            [matBadgeHidden]="cartItemCount() === 0"
+            matBadgeColor="warn">
+      <mat-icon>shopping_cart</mat-icon>
+    </button>
+
+    <button mat-button [matMenuTriggerFor]="userMenu" aria-label="Menu utente">
+      <mat-icon>person</mat-icon>
+      {{ currentUser()?.firstName }}
+    </button>
+
+    <mat-menu #userMenu="matMenu" xPosition="before" yPosition="below">
+      <button mat-menu-item disabled>
+        <mat-icon>email</mat-icon>
+        {{ currentUser()?.email }}
+      </button>
+      <button mat-menu-item (click)="goToOrders()">
+        <mat-icon>receipt_long</mat-icon>
+        I Miei Ordini
+      </button>
+      <button mat-menu-item (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        Esci
+      </button>
+    </mat-menu>
+  } @else {
+    <!-- User is not logged in -->
+    <button mat-button (click)="goToLogin()">
+      <mat-icon>login</mat-icon>
+      Accedi
+    </button>
+
+    <button mat-button (click)="goToRegister()">
+      <mat-icon>person_add</mat-icon>
+      Registrati
+    </button>
+  }
+</mat-toolbar>

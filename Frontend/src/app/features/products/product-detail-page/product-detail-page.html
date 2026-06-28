@@ -1,0 +1,52 @@
+<!-- app/features/products/product-detail/product-detail-page.html -->
+@if (product$ | async; as product) {
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>{{ product.title }}</mat-card-title>
+        <mat-card-subtitle>
+            @if (product.sale) {
+            <span class="price-original">
+                Prezzo originale:
+                {{ product.originalPrice | currency:'EUR' }}
+            </span>
+            <span class="price-sale">
+                Prezzo scontato:
+                {{ product.price | currency:'EUR' }}
+            </span>
+            } @else {
+            Prezzo:
+            {{ product.price | currency:'EUR' }}
+            }
+        </mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image [src]="product.thumbnail" [alt]="product.title" />
+    <mat-card-content>
+        <p>{{ product.description }}</p>
+        @if (product.quantity !== undefined && product.quantity !== null) {
+            <p class="availability">
+                @if (product.quantity >= 10) {
+                    <span class="available">{{ product.quantity }} disponibili</span>
+                } @else {
+                    <span class="limited">Solo {{ product.quantity }} rimanenti</span>
+                }
+            </p>
+        }
+    </mat-card-content>
+    <mat-card-actions class="product-actions">
+        <button mat-raised-button
+                [color]="isInWishlist(product.id) ? 'warn' : 'primary'"
+                (click)="toggleWishlist(product)">
+            <mat-icon>{{ isInWishlist(product.id) ? 'favorite' : 'favorite_border' }}</mat-icon>
+            {{ isInWishlist(product.id) ? 'Rimuovi dalla wishlist' : 'Aggiungi alla wishlist' }}
+        </button>
+        <button mat-raised-button color="accent" (click)="onAddToCart(product)">
+            <mat-icon>shopping_cart</mat-icon>
+            Aggiungi al carrello
+        </button>
+        <button mat-raised-button color="primary" routerLink="/products">
+            <mat-icon>arrow_back</mat-icon>
+            Torna al catalogo
+        </button>
+    </mat-card-actions>
+</mat-card>
+}

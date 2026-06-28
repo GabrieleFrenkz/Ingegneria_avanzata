@@ -1,0 +1,143 @@
+.header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    max-width: 85%;
+    margin: 1rem auto;
+    padding: 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    border-radius: 16px;
+}
+
+.Title {
+    color: white;
+    font-weight: 700;
+    font-size: 1.8em;
+    letter-spacing: 0.5px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    &::before {
+        content: '🛒';
+        font-size: 1.2em;
+    }
+}
+
+.spacer {
+    flex: 1;
+}
+
+mat-icon {
+    color: white;
+    font-weight: bold;
+}
+
+.MenuButton {
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    border-radius: 12px;
+    margin: 0 0.25rem;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.3);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+}
+
+button[matIconButton], button[mat-button] {
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    border-radius: 12px;
+    margin: 0 0.25rem;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    font-weight: 500;
+
+    mat-icon {
+        vertical-align: middle;
+        margin-right: 0.25rem;
+    }
+
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.3);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    &:active {
+        transform: translateY(0);
+    }
+}
+
+// Badge styling migliorato
+::ng-deep .mat-badge-content {
+    background-color: #ff4081;
+    font-weight: bold;
+    box-shadow: 0 2px 8px rgba(255, 64, 129, 0.4);
+}
+
+mat-toolbar {
+    display: flex;
+    justify-content: center;
+}
+
+// Stili personalizzati per il menu utente
+::ng-deep .mat-mdc-menu-panel {
+    min-width: 280px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    margin-top: 8px;
+    background: white;
+    border: 2px solid rgba(102, 126, 234, 0.2);
+}
+
+::ng-deep .mat-mdc-menu-content {
+    padding: 0.5rem 0;
+}
+
+::ng-deep .mat-mdc-menu-item {
+    min-height: 56px;
+    padding: 0 1.5rem;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+
+    &:not([disabled]) {
+        &:hover {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+
+            .mat-icon {
+                color: #667eea;
+                transform: scale(1.1);
+            }
+        }
+    }
+
+    &[disabled] {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        opacity: 1;
+        cursor: default;
+        font-weight: 600;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+        margin-bottom: 0.5rem;
+
+        .mat-icon {
+            color: white;
+        }
+    }
+
+    .mat-icon {
+        margin-right: 1rem;
+        transition: all 0.2s ease;
+        color: #666;
+    }
+}
