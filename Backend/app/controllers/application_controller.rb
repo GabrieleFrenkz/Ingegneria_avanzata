@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::API
   attr_reader :current_user
 
+  before_action :set_cors_headers
+
   # Gestione centralizzata degli errori
   rescue_from ActionController::ParameterMissing, with: :handle_parameter_missing
   rescue_from ActiveRecord::RecordNotFound, with: :handle_record_not_found
@@ -29,6 +31,14 @@ class ApplicationController < ActionController::API
   def require_admin!
     authenticate_request
     render json: { error: 'Access denied. Admin only.' }, status: :forbidden unless current_user&.admin?
+  end
+
+  def set_cors_headers
+    response.headers["Access-Control-Allow-Origin"] = request.headers["Origin"] || "http://localhost:4200"
+    response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, PATCH, DELETE, OPTIONS, HEAD"
+    response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization, X-Session-Token"
+    response.headers["Access-Control-Allow-Credentials"] = "true"
+    head :ok if request.method == "OPTIONS"
   end
 
   # Gestione session token per carrelli guest

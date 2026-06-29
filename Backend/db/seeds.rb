@@ -50,7 +50,11 @@ puts "Test user created: #{test_user1.email}"
 puts "Test user created: #{test_user2.email}"
 
 # Leggi i dati dal mock API
-mock_data_path = '../Frontend/shop-mock-api/db.json'
+mock_data_path = if File.exist?('frontend-mock-data/db.json')
+  'frontend-mock-data/db.json'
+else
+  '../Frontend/shop-mock-api/db.json'
+end
 
 unless File.exist?(mock_data_path)
   puts "Warning: Mock data file not found at #{mock_data_path}"

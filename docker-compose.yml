@@ -1,0 +1,25 @@
+services:
+  backend:
+    build:
+      context: ./Backend
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - backend_storage:/rails/storage
+      - ./Frontend/shop-mock-api:/rails/frontend-mock-data
+    environment:
+      - RAILS_ENV=development
+    entrypoint: ["/bin/bash", "-c", "./bin/rails db:prepare && ./bin/rails db:seed && ./bin/rails server -b 0.0.0.0 -p 3000"]
+
+  frontend:
+    build:
+      context: ./Frontend
+      dockerfile: Dockerfile
+    ports:
+      - "4200:4200"
+    depends_on:
+      - backend
+
+volumes:
+  backend_storage:
