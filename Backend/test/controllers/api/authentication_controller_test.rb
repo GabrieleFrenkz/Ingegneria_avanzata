@@ -163,8 +163,7 @@ module Api
         role: "user"
       )
 
-      token = JWT.encode({ user_id: user.id }, Rails.application.secret_key_base, "HS256")
-      get "/api/me", headers: { "Authorization" => "Bearer #{token}" }
+      get "/api/me", headers: auth_headers_for(user)
 
       assert_response :ok
       json = JSON.parse(response.body)
