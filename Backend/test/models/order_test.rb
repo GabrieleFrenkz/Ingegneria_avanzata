@@ -42,6 +42,22 @@ class OrderTest < ActiveSupport::TestCase
     assert_includes order.errors[:total], "must be greater than 0"
   end
 
+  # Property-Based Testing
+  test "PBT: qualunque total minore o uguale a zero rende l'ordine non valido" do
+    property_of {
+      range(-1_000, 0)
+    }.check(50) do |bad_total|
+      order = Order.new(
+        total: bad_total,
+        customer: { firstName: "Mario", lastName: "Rossi", email: "mario@example.com" },
+        address: { street: "Via Roma 1", city: "Milano", zip: "20100" }
+      )
+
+      assert_not order.valid?
+      assert_includes order.errors[:total], "must be greater than 0"
+    end
+  end
+
   # Test 4: Order non valido senza customer
   test "non valido senza customer" do
     order = Order.new(
