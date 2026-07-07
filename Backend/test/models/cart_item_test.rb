@@ -77,6 +77,20 @@ class CartItemTest < ActiveSupport::TestCase
     assert_includes cart_item.errors[:quantity], "exceeds available stock (5 available)"
   end
 
+  # ─── Property-Based Testing ─────────────────────────────────────────────────
+
+  test "PBT: qualunque quantity superiore allo stock disponibile rende il cart_item non valido" do
+    property_of {
+      range(1, 100)
+    }.check(50) do |extra|
+      quantity = @product.quantity + extra
+      cart_item = CartItem.new(cart: @cart, product_id: @product.id, quantity: quantity, unit_price: 20.0)
+
+      assert_not cart_item.valid?
+      assert_includes cart_item.errors[:quantity], "exceeds available stock (#{@product.quantity} available)"
+    end
+  end
+
   # ─── Serializzazione JSON ────────────────────────────────────────────────────
 
   test "as_json restituisce i campi attesi con subtotale e prodotto annidato" do
