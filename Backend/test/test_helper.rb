@@ -1,6 +1,7 @@
 ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
 require "rails/test_help"
+require "rantly/minitest_extensions"
 
 module ActiveSupport
   class TestCase
