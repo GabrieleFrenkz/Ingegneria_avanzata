@@ -53,3 +53,8 @@ group :development, :test do
 
   gem "rspec-rails"
 end
+
+group :test do
+  # Property-based testing for Minitest [https://github.com/hayeah/rantly]
+  gem "rantly", require: false
+end
