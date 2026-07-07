@@ -61,6 +61,19 @@ class ProductTest < ActiveSupport::TestCase
     assert_includes product.errors[:original_price], "must be greater than 0"
   end
 
+  # ─── Property-Based Testing ─────────────────────────────────────────────────
+
+  test "PBT: qualunque price minore o uguale a zero rende il prodotto non valido" do
+    property_of {
+      range(-1_000, 0)
+    }.check(50) do |bad_price|
+      product = Product.new(valid_attributes.merge(price: bad_price))
+
+      assert_not product.valid?
+      assert_includes product.errors[:price], "must be greater than 0"
+    end
+  end
+
   test "non valido senza quantity" do
     product = Product.new(valid_attributes.merge(quantity: nil))
 
