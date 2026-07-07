@@ -123,6 +123,19 @@ class UserTest < ActiveSupport::TestCase
     assert_not user.authenticate("password_sbagliata")
   end
 
+  # ─── Property-Based Testing ─────────────────────────────────────────────────
+
+  test "PBT: qualunque password generata autentica se stessa ma fallisce se modificata" do
+    property_of {
+      sized(10) { string(:alnum) }
+    }.check(20) do |raw_password|
+      user = User.create!(valid_attributes.merge(email: "user-#{SecureRandom.hex(6)}@example.com", password: raw_password))
+
+      assert user.authenticate(raw_password)
+      assert_not user.authenticate(raw_password.reverse + "x")
+    end
+  end
+
   # ─── Associazioni ────────────────────────────────────────────────────────────
 
   test "distruggere l'utente imposta a nil lo user_id degli ordini (dependent nullify)" do
