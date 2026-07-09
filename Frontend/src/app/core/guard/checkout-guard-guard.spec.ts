@@ -1,17 +1,36 @@
 import { TestBed } from '@angular/core/testing';
-import { CanActivateFn } from '@angular/router';
-
+import { ActivatedRouteSnapshot, CanActivateFn, provideRouter, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { checkoutGuardGuard } from './checkout-guard-guard';
+import { AuthService } from '../services/auth-service';
 
 describe('checkoutGuardGuard', () => {
-  const executeGuard: CanActivateFn = (...guardParameters) => 
-      TestBed.runInInjectionContext(() => checkoutGuardGuard(...guardParameters));
+  const executeGuard: CanActivateFn = (...guardParameters) =>
+    TestBed.runInInjectionContext(() => checkoutGuardGuard(...guardParameters));
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
+  function setup(isLoggedIn: boolean): void {
+    TestBed.configureTestingModule({
+      providers: [
+        provideRouter([]),
+        { provide: AuthService, useValue: { isLoggedIn: () => isLoggedIn } },
+      ],
+    });
+  }
+
+  it("consente l'accesso se l'utente è autenticato", () => {
+    setup(true);
+
+    const result = executeGuard({} as ActivatedRouteSnapshot, {} as RouterStateSnapshot);
+
+    expect(result).toBe(true);
   });
 
-  it('should be created', () => {
-    expect(executeGuard).toBeTruthy();
+  it("reindirizza a /login se l'utente non è autenticato", () => {
+    setup(false);
+    const router = TestBed.inject(Router);
+
+    const result = executeGuard({} as ActivatedRouteSnapshot, {} as RouterStateSnapshot);
+
+    expect(result).toBeInstanceOf(UrlTree);
+    expect(router.serializeUrl(result as UrlTree)).toBe('/login');
   });
 });
