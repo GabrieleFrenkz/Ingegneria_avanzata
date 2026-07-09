@@ -49,10 +49,10 @@ describe('errorInterceptor', () => {
     );
   });
 
-  it("su 401 verso /auth/login non fa logout né naviga", () => {
-    http.get('/auth/login').subscribe({ error: () => {} });
+  it("su 401 verso /api/login non fa logout né naviga", () => {
+    http.get('/api/login').subscribe({ error: () => {} });
 
-    httpMock.expectOne('/auth/login').flush({}, { status: 401, statusText: 'Unauthorized' });
+    httpMock.expectOne('/api/login').flush({}, { status: 401, statusText: 'Unauthorized' });
 
     expect(authService.logout).not.toHaveBeenCalled();
     expect(router.navigate).not.toHaveBeenCalled();
