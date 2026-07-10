@@ -1,0 +1,28 @@
+# See https://docs.docker.com/engine/reference/builder/#dockerignore-file for more about ignoring files.
+
+# Ignore git directory.
+/.git/
+/.gitignore
+
+# Ignore dependencies (installed inside the image via npm install).
+/node_modules
+
+# Ignore build output.
+/dist
+/.angular/cache
+
+# Ignore all environment files.
+/.env*
+
+# Ignore e2e test artifacts.
+/test-results
+/playwright-report
+/playwright/.cache
+
+# Ignore IDEs and editors.
+.vscode/
+.idea/
+
+# Ignore Docker-related files.
+/.dockerignore
+/Dockerfile*
