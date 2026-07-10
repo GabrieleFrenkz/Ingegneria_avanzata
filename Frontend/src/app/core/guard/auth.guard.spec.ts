@@ -1,11 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 import { ActivatedRouteSnapshot, CanActivateFn, provideRouter, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { checkoutGuardGuard } from './checkout-guard-guard';
+import { authGuard } from './auth.guard';
 import { AuthService } from '../services/auth-service';
 
-describe('checkoutGuardGuard', () => {
+describe('authGuard', () => {
   const executeGuard: CanActivateFn = (...guardParameters) =>
-    TestBed.runInInjectionContext(() => checkoutGuardGuard(...guardParameters));
+    TestBed.runInInjectionContext(() => authGuard(...guardParameters));
 
   function setup(isLoggedIn: boolean): void {
     TestBed.configureTestingModule({

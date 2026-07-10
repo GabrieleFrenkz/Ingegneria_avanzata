@@ -40,7 +40,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
           console.error('[ErrorInterceptor] Unauthorized (401):', error);
 
           // Logout solo se non siamo già nella pagina di login
-          if (!req.url.includes('/auth/login') && !req.url.includes('/auth/register')) {
+          if (!req.url.includes('/api/login') && !req.url.includes('/api/register')) {
             authService.logout();
             router.navigate(['/login'], {
               queryParams: { returnUrl: router.url, sessionExpired: 'true' }
