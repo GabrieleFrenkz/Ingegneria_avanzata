@@ -1,10 +1,11 @@
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 import { provideRouter, Router } from '@angular/router';
 import { WishlistPage } from './wishlist-page';
 import { WishlistService } from '../../../core/services/wishlist.service';
 import { CartService } from '../../../core/services/cart.service';
 import { WishlistItem } from '../../../core/models/wishlist';
+import { Product } from '../../../core/models/product';
 
 describe('WishlistPage', () => {
   let component: WishlistPage;
@@ -21,6 +22,7 @@ describe('WishlistPage', () => {
   };
   let cartService: { addToCart: ReturnType<typeof vi.fn> };
   let router: Router;
+  let fixture: ComponentFixture<WishlistPage>;
 
   const mockItem: WishlistItem = {
     id: 1,
@@ -29,6 +31,19 @@ describe('WishlistPage', () => {
     product: {} as WishlistItem['product'],
     createdAt: '2026-01-01T00:00:00Z',
     updatedAt: '2026-01-01T00:00:00Z',
+  };
+
+  const mockProduct: Product = {
+    discountPercentage: 0,
+    id: 'prod-1',
+    title: 'Zaino da trekking',
+    description: 'Zaino robusto',
+    price: 40,
+    originalPrice: 50,
+    sale: true,
+    thumbnail: 'zaino.jpg',
+    inStock: true,
+    createdAt: '2026-01-01T00:00:00Z',
   };
 
   beforeEach(() => {
@@ -54,7 +69,7 @@ describe('WishlistPage', () => {
       ],
     });
 
-    const fixture = TestBed.createComponent(WishlistPage);
+    fixture = TestBed.createComponent(WishlistPage);
     component = fixture.componentInstance;
     router = TestBed.inject(Router);
     vi.spyOn(router, 'navigate').mockResolvedValue(true);
@@ -122,5 +137,88 @@ describe('WishlistPage', () => {
   it('continueShopping naviga a /products', () => {
     component.continueShopping();
     expect(router.navigate).toHaveBeenCalledWith(['/products']);
+  });
+
+  describe('rendering del template', () => {
+    it('mostra lo stato "lista vuota" quando isEmpty è true e non sta caricando', () => {
+      fixture.detectChanges();
+
+      const el = fixture.nativeElement as HTMLElement;
+      expect(el.querySelector('.empty-wishlist')).toBeTruthy();
+      expect(el.querySelector('.wishlist-content')).toBeFalsy();
+      expect(el.textContent).toContain('La tua lista desideri è vuota');
+    });
+
+    it('mostra lo spinner di caricamento quando loading è true', () => {
+      wishlistService.loading.mockReturnValue(true);
+
+      fixture.detectChanges();
+
+      const el = fixture.nativeElement as HTMLElement;
+      expect(el.querySelector('.loading-container')).toBeTruthy();
+      expect(el.querySelector('.empty-wishlist')).toBeFalsy();
+    });
+
+    it('mostra il messaggio di errore e permette di ricaricare cliccando "Riprova"', () => {
+      wishlistService.error.mockReturnValue('Errore di rete');
+
+      fixture.detectChanges();
+      const el = fixture.nativeElement as HTMLElement;
+      expect(el.querySelector('.error-card')).toBeTruthy();
+      expect(el.textContent).toContain('Errore di rete');
+
+      const callsBefore = wishlistService.loadWishlist.mock.calls.length;
+      (el.querySelector('.error-card button') as HTMLButtonElement).click();
+      expect(wishlistService.loadWishlist.mock.calls.length).toBeGreaterThan(callsBefore);
+    });
+
+    it('mostra la lista con thumbnail, badge sconto e stato "non disponibile"', () => {
+      wishlistService.isEmpty.mockReturnValue(false);
+      wishlistService.items.mockReturnValue([
+        { ...mockItem, product: { ...mockProduct, inStock: false } },
+      ]);
+      wishlistService.itemCount.mockReturnValue(1);
+
+      fixture.detectChanges();
+
+      const el = fixture.nativeElement as HTMLElement;
+      expect(el.querySelectorAll('.wishlist-item').length).toBe(1);
+      expect(el.querySelector('.item-image')).toBeTruthy();
+      expect(el.querySelector('.original-price')).toBeTruthy();
+      expect(el.querySelector('.out-of-stock')).toBeTruthy();
+
+      const addToCartButton = el.querySelector('.item-actions button') as HTMLButtonElement;
+      expect(addToCartButton.disabled).toBe(true);
+    });
+
+    it('non mostra thumbnail, badge sconto né stato "non disponibile" quando non servono', () => {
+      wishlistService.isEmpty.mockReturnValue(false);
+      wishlistService.items.mockReturnValue([
+        {
+          ...mockItem,
+          product: { ...mockProduct, sale: false, thumbnail: undefined, inStock: true },
+        },
+      ]);
+      wishlistService.itemCount.mockReturnValue(1);
+
+      fixture.detectChanges();
+
+      const el = fixture.nativeElement as HTMLElement;
+      expect(el.querySelector('.item-image')).toBeFalsy();
+      expect(el.querySelector('.original-price')).toBeFalsy();
+      expect(el.querySelector('.out-of-stock')).toBeFalsy();
+    });
+
+    it('cliccare sul titolo del prodotto chiama viewProduct', () => {
+      wishlistService.isEmpty.mockReturnValue(false);
+      wishlistService.items.mockReturnValue([{ ...mockItem, product: mockProduct }]);
+      wishlistService.itemCount.mockReturnValue(1);
+
+      fixture.detectChanges();
+
+      const el = fixture.nativeElement as HTMLElement;
+      (el.querySelector('.product-title') as HTMLElement).click();
+      expect(router.navigate).toHaveBeenCalledWith(['/products', 'prod-1']);
+    });
   });
 });
