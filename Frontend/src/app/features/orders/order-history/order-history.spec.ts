@@ -1,11 +1,12 @@
-import { TestBed } from '@angular/core/testing';
-import { of, throwError } from 'rxjs';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { of, Subject, throwError } from 'rxjs';
 import { OrderHistoryPage } from './order-history';
 import { OrderService } from '../../../core/services/order-service';
 import { Order } from '../../../core/models/order';
 
 describe('OrderHistoryPage', () => {
   let component: OrderHistoryPage;
+  let fixture: ComponentFixture<OrderHistoryPage>;
   let orderService: { getOrders: ReturnType<typeof vi.fn> };
 
   const mockOrders: Order[] = [
@@ -30,7 +31,7 @@ describe('OrderHistoryPage', () => {
       providers: [{ provide: OrderService, useValue: orderService }],
     });
 
-    const fixture = TestBed.createComponent(OrderHistoryPage);
+    fixture = TestBed.createComponent(OrderHistoryPage);
     component = fixture.componentInstance;
   });
 
@@ -109,5 +110,81 @@ describe('OrderHistoryPage', () => {
 
   it('getOrderItemsCount restituisce 0 se orderItems è assente', () => {
     expect(component.getOrderItemsCount({ ...mockOrders[0], orderItems: undefined })).toBe(0);
+  });
+
+  describe('rendering del template', () => {
+    it('mostra la lista ordini nell\'accordion con cliente, indirizzo e articoli', () => {
+      fixture.detectChanges();
+
+      const el = fixture.nativeElement as HTMLElement;
+      expect(el.querySelector('.empty-state')).toBeFalsy();
+      expect(el.querySelectorAll('mat-expansion-panel').length).toBe(1);
+      expect(el.textContent).toContain('Mario Rossi');
+      expect(el.textContent).toContain('Via Roma 1');
+      expect(el.querySelectorAll('.order-item').length).toBe(2);
+      // orderItems senza `product`: deve usare il fallback "Prodotto #<id>"
+      expect(el.textContent).toContain('Prodotto #p1');
+    });
+
+    it('mostra i fallback "N/D" quando cliente/indirizzo hanno campi nulli, e il titolo prodotto quando presente', () => {
+      orderService.getOrders.mockReturnValue(
+        of([
+          {
+            ...mockOrders[0],
+            customer: { firstName: null, lastName: null, email: null },
+            address: { street: null, city: null, zip: null },
+            orderItems: [
+              {
+                id: 1,
+                orderId: 1,
+                productId: 'p1',
+                quantity: 1,
+                unitPrice: 10,
+                createdAt: '',
+                updatedAt: '',
+                product: { id: 'p1', title: 'Zaino', description: '', price: 10, originalPrice: 10, sale: false, discountPercentage: 0, createdAt: '' },
+              },
+            ],
+          },
+        ]),
+      );
+
+      fixture.detectChanges();
+
+      const el = fixture.nativeElement as HTMLElement;
+      expect(el.textContent).toContain('N/D');
+      expect(el.textContent).toContain('Zaino');
+    });
+
+    it('mostra lo spinner mentre carica, senza mostrare la lista ordini', () => {
+      orderService.getOrders.mockReturnValue(new Subject());
+
+      fixture.detectChanges();
+
+      const el = fixture.nativeElement as HTMLElement;
+      expect(el.querySelector('.loading-container')).toBeTruthy();
+      expect(el.querySelector('.orders-list')).toBeFalsy();
+    });
+
+    it('mostra il messaggio di errore quando il caricamento fallisce', () => {
+      orderService.getOrders.mockReturnValue(throwError(() => ({ error: { error: 'Boom' } })));
+
+      fixture.detectChanges();
+
+      const el = fixture.nativeElement as HTMLElement;
+      expect(el.querySelector('.error-card')).toBeTruthy();
+      expect(el.textContent).toContain('Boom');
+      expect(el.querySelector('.orders-list')).toBeFalsy();
+    });
+
+    it('mostra lo stato vuoto quando non ci sono ordini', () => {
+      orderService.getOrders.mockReturnValue(of([]));
+
+      fixture.detectChanges();
+
+      const el = fixture.nativeElement as HTMLElement;
+      expect(el.querySelector('.empty-state')).toBeTruthy();
+      expect(el.querySelector('mat-accordion')).toBeFalsy();
+    });
   });
 });
