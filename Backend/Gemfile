@@ -57,4 +57,7 @@ end
 group :test do
   # Property-based testing for Minitest [https://github.com/hayeah/rantly]
   gem "rantly", require: false
+
+  # Code coverage report [https://github.com/simplecov-ruby/simplecov]
+  gem "simplecov", require: false
 end
