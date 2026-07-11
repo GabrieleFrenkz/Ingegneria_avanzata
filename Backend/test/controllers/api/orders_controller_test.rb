@@ -301,5 +301,37 @@ module Api
       assert_equal 1, json_response.length
       assert_equal order1.id, json_response[0]["id"]
     end
+
+    # Test 10: PBT sul filtro min_total/max_total
+    test "PBT: qualunque range min_total/max_total, tutti gli ordini restituiti hanno il totale nel range" do
+      [ 20.0, 45.0, 75.0, 120.0 ].each do |total|
+        Order.create!(
+          total: total,
+          customer: { firstName: "Mario", lastName: "Rossi", email: "mario@example.com" },
+          address: { street: "Via Roma 1", city: "Milano", zip: "20100" },
+          user: @user
+        )
+      end
+
+      property_of {
+        a = range(0, 150)
+        b = range(0, 150)
+        a <= b ? [ a, b ] : [ b, a ]
+      }.check(50) do |bounds|
+        min_total, max_total = bounds
+
+        get "/api/orders", params: { min_total: min_total, max_total: max_total }, headers: @headers
+
+        assert_response :success
+        json = JSON.parse(response.body)
+
+        json.each do |order|
+          assert order["total"] >= min_total,
+            "ordine #{order['id']} con totale #{order['total']} sotto il min_total #{min_total}"
+          assert order["total"] <= max_total,
+            "ordine #{order['id']} con totale #{order['total']} sopra il max_total #{max_total}"
+        end
+      end
+    end
   end
 end
