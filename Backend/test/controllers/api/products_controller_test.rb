@@ -148,6 +148,28 @@ module Api
       assert_equal [ "prod-3", "prod-2", "prod-1" ], json.map { |p| p["id"] }
     end
 
+    test "PBT: qualunque range min_price/max_price, tutti i prodotti restituiti hanno il prezzo nel range" do
+      property_of {
+        a = range(0, 100)
+        b = range(0, 100)
+        a <= b ? [ a, b ] : [ b, a ]
+      }.check(50) do |bounds|
+        min_price, max_price = bounds
+
+        get "/api/products", params: { min_price: min_price, max_price: max_price }
+
+        assert_response :ok
+        json = JSON.parse(response.body)
+
+        json.each do |product|
+          assert product["price"] >= min_price,
+            "prodotto #{product['id']} con prezzo #{product['price']} sotto il min_price #{min_price}"
+          assert product["price"] <= max_price,
+            "prodotto #{product['id']} con prezzo #{product['price']} sopra il max_price #{max_price}"
+        end
+      end
+    end
+
     # ─── GET /api/products/:id ──────────────────────────────────────────────────
 
     test "show restituisce il prodotto richiesto" do
