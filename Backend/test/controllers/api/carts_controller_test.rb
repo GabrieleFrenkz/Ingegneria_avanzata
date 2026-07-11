@@ -223,5 +223,46 @@ module Api
 
       assert_response :unauthorized
     end
+
+    # ─── PBT ───────────────────────────────────────────────────────────────────
+
+    test "PBT: aggiungere più volte lo stesso prodotto accumula correttamente la quantità" do
+      # Scorta ampia: qui vogliamo isolare l'invariante sull'accumulo di quantità,
+      # non il vincolo di stock (già coperto da altri test dedicati).
+      product = Product.create!(
+        id: "prod-cart-pbt",
+        title: "Prodotto PBT",
+        description: "Scorta ampia per il PBT sull'accumulo quantità",
+        price: 25.0,
+        original_price: 30.0,
+        quantity: 1000,
+        sale: false,
+        thumbnail: "test.jpg",
+        tags: [ "test" ]
+      )
+
+      property_of {
+        array(range(1, 5)) { range(1, 10) }
+      }.check(30) do |quantities|
+        # Stato pulito ad ogni check, altrimenti le quantità si accumulerebbero tra un check e l'altro
+        Cart.find_by(user_id: @user.id)&.cart_items&.destroy_all
+
+        quantities.each do |qty|
+          post "/api/cart/items",
+            params: { product_id: product.id, quantity: qty },
+            headers: @headers,
+            as: :json
+
+          assert_response :ok
+        end
+
+        json = JSON.parse(response.body)
+        expected_quantity = quantities.sum
+
+        assert_equal 1, json["cart"]["items"].length
+        assert_equal expected_quantity, json["item"]["quantity"]
+        assert_equal expected_quantity * product.price, json["cart"]["total"]
+      end
+    end
   end
 end
