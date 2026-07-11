@@ -6,6 +6,7 @@ SimpleCov.start "rails" do
   # rspec-rails), ma qui la suite gira su Minitest.
   command_name "Minitest"
   add_filter "/test/"
+  enable_coverage :branch
 end
 
 ENV["RAILS_ENV"] ||= "test"
