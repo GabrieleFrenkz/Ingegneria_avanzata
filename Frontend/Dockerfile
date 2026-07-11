@@ -1,19 +1,23 @@
-FROM node:20
+# This Dockerfile is designed for production. For local development with
+# live-reload, use Dockerfile.dev (referenced by docker-compose.yml).
+
+# --- Stage 1: build ---
+FROM node:20 AS build
 
 WORKDIR /app
 
-# Install dependencies
 COPY package.json package-lock.json ./
-RUN npm install && npm cache clean --force
+RUN npm ci
 
-# Install Angular CLI globally
-RUN npm install -g @angular/cli
-
-# Copy application code
 COPY . .
+RUN npm run build
 
-# Expose Angular dev server port
-EXPOSE 4200
+# --- Stage 2: serve the compiled static assets with nginx ---
+FROM nginx:alpine
 
-# Start the development server
-CMD ["npm", "start", "--", "--host", "0.0.0.0"]
+COPY --from=build /app/dist/flowboard/browser /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
