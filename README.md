@@ -2,6 +2,10 @@
 
 **Applicazione e-commerce completa** con backend Rails API e frontend Angular, che implementa funzionalità di catalogo prodotti, carrello della spesa, wishlist, sistema di checkout e pannello amministrativo.
 
+> Questo file spiega **come** installare, avviare e usare il progetto. Per
+> **cosa** fa il sistema (requisiti, utenti, regole di business), vedi
+> [SPECIFICHE.md](SPECIFICHE.md).
+
 [![Ruby](https://img.shields.io/badge/Ruby-3.4.7-red.svg)](https://www.ruby-lang.org/)
 [![Rails](https://img.shields.io/badge/Rails-8.1.1-red.svg)](https://rubyonrails.org/)
 [![Angular](https://img.shields.io/badge/Angular-21.0-red.svg)](https://angular.io/)
@@ -29,7 +33,7 @@
 
 ### Per gli Utenti
 - 🛍️ **Catalogo Prodotti** con ricerca e filtri avanzati (prezzo, titolo, ordinamento)
-- 🛒 **Carrello della Spesa** persistente per utenti autenticati e sessioni guest
+- 🛒 **Carrello della Spesa** persistente per utenti autenticati
 - ❤️ **Wishlist** per salvare prodotti preferiti
 - 💳 **Checkout** con validazione dati e gestione ordini
 - 📦 **Storico Ordini** completo con dettagli prodotti e prezzi
@@ -65,7 +69,9 @@
 | **JWT** | Latest | Autenticazione token-based |
 | **bcrypt** | ~> 3.1.7 | Password encryption |
 | **Rack-CORS** | Latest | Cross-Origin Resource Sharing |
-| **RSpec** | Latest | Testing framework |
+| **Minitest** | Default Rails | Testing framework (unit, integration) |
+| **rantly** | Latest | Property-based testing su Minitest |
+| **SimpleCov** | Latest | Coverage (line + branch) |
 
 ### Frontend
 | Tecnologia | Versione | Utilizzo |
@@ -74,7 +80,8 @@
 | **TypeScript** | 5.9.2 | Linguaggio type-safe |
 | **Angular Material** | 21.0 | UI Component library |
 | **RxJS** | 7.8 | Reactive programming |
-| **Vitest** | 4.0.8 | Unit testing |
+| **Vitest** | 4.0.8 | Unit testing (con `@vitest/coverage-v8`) |
+| **Playwright** | 1.61 | Test end-to-end |
 
 ### Architettura
 - **Pattern:** REST API con separazione frontend/backend
@@ -168,7 +175,7 @@ ng version # Angular CLI 21.0
 
 ```bash
 git clone <repository-url>
-cd Progetto_Sistemi_Web
+cd Ingegneria_avanzata
 ```
 
 ### 2️⃣ Setup Backend (Rails API)
@@ -220,29 +227,44 @@ ng version
 
 ## ▶️ Avvio dell'Applicazione
 
-### Avvia Backend (Porta 3000)
+### Opzione A — Avvio manuale
 
+**Backend (porta 3000):**
 ```bash
 cd Backend
+bin/dev
+```
 
-# Avvia il server Rails
-rbin/dev
-
-### Avvia Frontend (Porta 4200)
-
+**Frontend (porta 4200), in un nuovo terminale:**
 ```bash
-# In un nuovo terminale
 cd Frontend
-
-# Avvia il server di sviluppo Angular
 npm start
 # oppure
 ng serve
-
+```
 
 **Accedi all'applicazione:**
 - Apri il browser: **http://localhost:4200**
 - L'applicazione si ricaricherà automaticamente ad ogni modifica del codice
+
+### Opzione B — Docker Compose
+
+Avvia backend e frontend in container, senza installare Ruby/Node in
+locale:
+
+```bash
+docker compose up
+```
+
+Il backend (porta 3000) prepara e popola automaticamente il database al
+primo avvio. Stesso risultato dell'opzione A, con `Backend/Dockerfile.dev`
+e `Frontend/Dockerfile.dev` (dev server con live-reload, non le immagini
+di produzione).
+
+Le immagini **di produzione** (`Backend/Dockerfile`, `Frontend/Dockerfile`)
+sono invece multi-stage: buildano l'applicazione e la servono con
+Puma/Thruster (backend) o nginx (frontend), pensate per il deployment, non
+per lo sviluppo locale.
 
 ### 🎯 Verifica Completa
 
@@ -294,7 +316,6 @@ Ruolo:    user
 (Stesse funzionalità dell'Utente #1)
 ```
 
-```
 ### 🆕 Registrazione Nuovo Utente
 - Vai su **http://localhost:4200/register**
 - Compila il form di registrazione
@@ -351,6 +372,10 @@ Ruolo:    user
 | GET | `/api/orders` | ✅ | Lista ordini utente |
 | POST | `/api/orders` | ✅ | Crea nuovo ordine dal carrello |
 
+**Query Parameters per `/api/orders`:**
+- `start_date` / `end_date` - Filtro per intervallo di date
+- `min_total` / `max_total` - Filtro per intervallo di importo
+
 
 ### Admin - Prodotti (Solo Admin)
 | Method | Endpoint | Auth | Descrizione |
@@ -374,7 +399,12 @@ Ruolo:    user
 
 ## 📁 Struttura del Progetto
 ```
-Progetto_Sistemi_Web/
+Ingegneria_avanzata/
+│
+├── .github/
+│   └── workflows/
+│       ├── ci.yml               # CI: lint, security, test, build Docker, e2e
+│       └── release.yml          # CD: pubblica immagini su GHCR al push di un tag
 │
 ├── Backend/                    # Rails API
 │   ├── app/
@@ -393,7 +423,7 @@ Progetto_Sistemi_Web/
 │   │   ├── models/             # ActiveRecord Models
 │   │   │   ├── user.rb         # Utente (has_secure_password, JWT)
 │   │   │   ├── product.rb      # Prodotto
-│   │   │   ├── cart.rb         # Carrello (user + guest)
+│   │   │   ├── cart.rb         # Carrello (un solo carrello per utente autenticato)
 │   │   │   ├── cart_item.rb    # Item nel carrello
 │   │   │   ├── order.rb        # Ordine
 │   │   │   ├── order_item.rb   # Item nell'ordine
@@ -413,7 +443,10 @@ Progetto_Sistemi_Web/
 │   │   ├── schema.rb           # Schema database corrente
 │   │   └── seeds.rb            # Dati iniziali (prodotti, utenti)
 │   │
-│   ├── spec/                   # RSpec tests
+│   ├── test/                   # Minitest (unit, integration, PBT con rantly)
+│   ├── coverage/                # Report SimpleCov (generato, non versionato)
+│   ├── Dockerfile               # Immagine di produzione (multi-stage)
+│   ├── Dockerfile.dev            # Immagine di sviluppo
 │   ├── Gemfile                 # Dipendenze Ruby
 │   └── ...
 │
@@ -482,14 +515,26 @@ Progetto_Sistemi_Web/
 │   │   ├── index.html          # HTML entry point
 │   │   └── main.ts             # Bootstrap Angular
 │   │
+│   ├── e2e/                    # Test end-to-end Playwright
+│   │   ├── auth.spec.ts
+│   │   ├── shopping.spec.ts
+│   │   ├── cart.spec.ts
+│   │   ├── checkout.spec.ts
+│   │   ├── wishlist.spec.ts
+│   │   └── admin.spec.ts
+│   │
 │   ├── angular.json            # Angular CLI configuration
+│   ├── playwright.config.ts    # Configurazione e2e (avvia da solo backend+frontend)
 │   ├── package.json            # Dipendenze npm
 │   ├── tsconfig.json           # TypeScript configuration
+│   ├── Dockerfile               # Immagine di produzione (multi-stage + nginx)
+│   ├── Dockerfile.dev            # Immagine di sviluppo
 │   └── ...
 │
+├── docker-compose.yml          # Orchestrazione backend+frontend (sviluppo)
 ├── README.md                   # Questo file
-├── ARCHITETTURA.md             # Documentazione architettura dettagliata
-└── GUIDA_STUDIO.md             # Guida di studio completa
+├── SPECIFICHE.md                # Cosa fa il sistema (requisiti, non installazione)
+└── TESTING_NOTES.md             # Note di studio sulla strategia di test (non versionato)
 ```
 ```
 ### Diagramma delle Entità
@@ -616,18 +661,21 @@ Rappresenta un prodotto disponibile nel catalogo.
 
 #### Cart (Carrello)
 
-Rappresenta il carrello della spesa di un utente o di un guest.
+Rappresenta il carrello della spesa di un utente autenticato. Non esiste un
+carrello "guest": tutti gli endpoint `/api/cart/*` richiedono un token JWT
+valido.
 
 **Attributi:**
 - `id`: Identificatore univoco (Integer)
-- `user_id`: ID dell'utente proprietario (Integer, nullable per guest)
-- `session_token`: Token per carrelli guest (String, nullable)
-- `expires_at`: Data di scadenza del carrello (DateTime)
+- `user_id`: ID dell'utente proprietario (Integer, obbligatorio, unique — un
+  solo carrello per utente)
+- `expires_at`: Data di scadenza del carrello (DateTime, non attualmente
+  applicata da nessuna logica)
 - `created_at`: Data di creazione (DateTime)
 - `updated_at`: Data di ultimo aggiornamento (DateTime)
 
 **Relazioni:**
-- `belongs_to :user` (opzionale)
+- `belongs_to :user`
 - `has_many :cart_items`
 - `has_many :products, through: :cart_items`
 
@@ -636,10 +684,6 @@ Rappresenta il carrello della spesa di un utente o di un guest.
 - `item_count()`: Conta il numero di item nel carrello
 - `empty?()`: Verifica se il carrello è vuoto
 - `clear_items()`: Svuota il carrello
-
-**Funzionalità:**
-- Supporto per utenti autenticati e guest
-- Scadenza automatica dei carrelli guest dopo un periodo
 
 #### CartItem (Elemento del Carrello)
 
@@ -669,9 +713,9 @@ Rappresenta un ordine completato da un utente.
 - `id`: Identificatore univoco (Integer)
 - `user_id`: ID dell'utente (Integer, opzionale per ordini guest)
 - `customer`: Dati del cliente in formato JSON (JSON)
-  - `first_name`, `last_name`, `email`, `phone`
+  - `firstName`, `lastName`, `email`
 - `address`: Indirizzo di spedizione in formato JSON (JSON)
-  - `street`, `city`, `postal_code`, `country`
+  - `street`, `city`, `zip`
 - `total`: Totale dell'ordine (Decimal 10,2)
 - `created_at`: Data di creazione/ordine (DateTime)
 - `updated_at`: Data di ultimo aggiornamento (DateTime)
@@ -754,15 +798,11 @@ Rappresenta un prodotto nella wishlist di un utente.
 
 ### 🛒 Gestione Carrello Avanzata
 
-**Carrello Guest:**
-- Gli utenti non autenticati possono aggiungere prodotti
-- Carrello salvato in sessione tramite `X-Session-Token` UUID
-- Persistenza locale con scadenza configurabile
-
 **Carrello Autenticato:**
-- Carrello persistente nel database
+- Carrello persistente nel database, accessibile solo con token JWT valido
 - Un carrello per utente (relazione one-to-one)
-- **Merge automatico:** Al login, il carrello guest viene unito con quello dell'utente
+- Aggiungere lo stesso prodotto più volte somma le quantità nella stessa voce
+- Il prezzo unitario viene congelato al momento dell'aggiunta
 
 **Funzionalità Carrello:**
 - ➕ Aggiungi prodotto con quantità
@@ -898,38 +938,69 @@ rescue_from StandardError → 500 Internal Server Error
 
 ## 🧪 Testing
 
-### Backend Testing (RSpec)
+Il progetto copre tutti i livelli di test visti a lezione: unità,
+integrazione, property-based, end-to-end, oltre a una misura di coverage
+per backend e frontend. Per il dettaglio di cosa è stato testato, come, e i
+bug reali trovati scrivendo i test, vedi [TESTING_NOTES.md](TESTING_NOTES.md).
+
+### Backend Testing (Minitest)
 
 ```bash
 cd Backend
 
-# Esegui tutti i test
-bundle exec rspec
+# Esegui tutti i test (unit + integration + property-based)
+bin/rails test
 
-# Esegui test specifici
-bundle exec rspec spec/models/user_spec.rb
-bundle exec rspec spec/controllers/api/products_controller_spec.rb
+# Esegui un file specifico
+bin/rails test test/models/user_test.rb
+bin/rails test test/controllers/api/products_controller_test.rb
 
-# Con coverage
-bundle exec rspec --format documentation
+# Il coverage (SimpleCov) viene generato automaticamente ad ogni run,
+# report in Backend/coverage/index.html
 ```
+
+**Test implementati:**
+- Unit test su tutti i model (`test/models/`)
+- Integration test su tutti i controller `api/*` (`test/controllers/`)
+- Property-based test (gem `rantly`) su 4 model e 3 controller: generano
+  input casuali per verificare un'invariante (es. "qualunque range
+  min_price/max_price, tutti i prodotti restituiti hanno il prezzo nel
+  range"), invece di testare solo pochi casi scelti a mano
 
 ### Frontend Testing (Vitest)
 
 ```bash
 cd Frontend
 
-# Esegui test una volta
+# Esegui i test (watch mode di default)
 npm test
 
-# Watch mode (riesegue ad ogni modifica)
-npm run test:watch
-
-# Con coverage
+# Esegui una volta, con coverage (report in Frontend/coverage/)
 npm run test:coverage
 ```
 
-**Test Implementati:**
-- Unit test per services (auth, cart, product)
-- Component tests per guard
-- Integration test per interceptors
+**Test implementati:**
+- Unit test per services, guard, interceptor
+- Component test per le pagine (rendering condizionale del template,
+  incluse le pagine con più stati come `admin-dashboard`)
+
+### End-to-End Testing (Playwright)
+
+```bash
+cd Frontend
+
+# Esegui tutta la suite e2e (avvia da solo backend Rails + frontend Angular)
+npm run e2e
+```
+
+**Flussi coperti:** autenticazione, catalogo/ricerca prodotti, carrello,
+checkout, wishlist, pannello admin (CRUD prodotti e ordini).
+
+### Pipeline CI/CD
+
+Ogni push e pull request esegue automaticamente lint (Rubocop), security
+scan (Brakeman + bundler-audit), tutti i test sopra descritti con
+coverage, e un build di verifica delle immagini Docker
+(`.github/workflows/ci.yml`). Il push di un tag SemVer (`vX.Y.Z`) pubblica
+le immagini Docker su GitHub Container Registry
+(`.github/workflows/release.yml`).
