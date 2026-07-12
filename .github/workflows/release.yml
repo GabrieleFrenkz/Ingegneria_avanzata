@@ -58,7 +58,7 @@ jobs:
           echo "owner_lc=$OWNER_LC" >> $GITHUB_OUTPUT
 
       - name: Build & push backend image
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: ./Backend
           file: ./Backend/Dockerfile
@@ -74,7 +74,7 @@ jobs:
             org.opencontainers.image.version=${{ steps.meta.outputs.version }}
 
       - name: Build & push frontend image
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: ./Frontend
           file: ./Frontend/Dockerfile
