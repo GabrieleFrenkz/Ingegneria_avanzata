@@ -12,12 +12,12 @@ class ApplicationController < ActionController::API
   private
 
   def authenticate_request
-    header = request.headers['Authorization']
-    header = header.split(' ').last if header
+    header = request.headers["Authorization"]
+    header = header.split(" ").last if header
 
     begin
-      decoded = JWT.decode(header, Rails.application.secret_key_base, true, { algorithm: 'HS256' })
-      @current_user = User.find(decoded[0]['user_id'])
+      decoded = JWT.decode(header, Rails.application.secret_key_base, true, { algorithm: "HS256" })
+      @current_user = User.find(decoded[0]["user_id"])
     rescue JWT::DecodeError, ActiveRecord::RecordNotFound
       @current_user = nil
     end
@@ -25,12 +25,12 @@ class ApplicationController < ActionController::API
 
   def require_authentication!
     authenticate_request
-    render json: { error: 'Not authenticated' }, status: :unauthorized unless current_user
+    render json: { error: "Not authenticated" }, status: :unauthorized unless current_user
   end
 
   def require_admin!
     authenticate_request
-    render json: { error: 'Access denied. Admin only.' }, status: :forbidden unless current_user&.admin?
+    render json: { error: "Access denied. Admin only." }, status: :forbidden unless current_user&.admin?
   end
 
   def set_cors_headers
@@ -43,7 +43,7 @@ class ApplicationController < ActionController::API
 
   # Gestione session token per carrelli guest
   def session_token
-    @session_token ||= request.headers['X-Session-Token']
+    @session_token ||= request.headers["X-Session-Token"]
   end
 
   def generate_session_token
@@ -73,7 +73,7 @@ class ApplicationController < ActionController::API
     else
       # Nuovo guest: genera session token
       new_token = generate_session_token
-      response.set_header('X-Session-Token', new_token)
+      response.set_header("X-Session-Token", new_token)
       Cart.create!(session_token: new_token)
     end
   end
@@ -94,7 +94,7 @@ class ApplicationController < ActionController::API
   # 400 Bad Request - Parametri mancanti o invalidi
   def handle_parameter_missing(exception)
     render json: {
-      error: 'Bad Request',
+      error: "Bad Request",
       message: exception.message,
       details: "Required parameter missing: #{exception.param}"
     }, status: :bad_request
@@ -103,8 +103,8 @@ class ApplicationController < ActionController::API
   # 404 Not Found - Risorsa non trovata
   def handle_record_not_found(exception)
     render json: {
-      error: 'Not Found',
-      message: 'The requested resource was not found',
+      error: "Not Found",
+      message: "The requested resource was not found",
       details: exception.message
     }, status: :not_found
   end
@@ -112,8 +112,8 @@ class ApplicationController < ActionController::API
   # 422 Unprocessable Entity - Validazione fallita
   def handle_record_invalid(exception)
     render json: {
-      error: 'Unprocessable Entity',
-      message: 'Validation failed',
+      error: "Unprocessable Entity",
+      message: "Validation failed",
       details: exception.record.errors.full_messages
     }, status: :unprocessable_entity
   end
@@ -127,15 +127,15 @@ class ApplicationController < ActionController::API
     # In development mostra dettagli, in production nascondi dettagli sensibili
     if Rails.env.development?
       render json: {
-        error: 'Internal Server Error',
+        error: "Internal Server Error",
         message: exception.message,
         details: exception.class.to_s,
         backtrace: exception.backtrace.first(5)
       }, status: :internal_server_error
     else
       render json: {
-        error: 'Internal Server Error',
-        message: 'An unexpected error occurred. Please try again later.'
+        error: "Internal Server Error",
+        message: "An unexpected error occurred. Please try again later."
       }, status: :internal_server_error
     end
   end

@@ -1,7 +1,7 @@
 module Api
   class WishlistsController < ApplicationController
     before_action :require_authentication!
-    before_action :ensure_wishlist, only: [:show, :clear]
+    before_action :ensure_wishlist, only: [ :show, :clear ]
 
     # GET /api/wishlist
     # Returns current user's wishlist with all items
@@ -22,7 +22,7 @@ module Api
 
       if wishlist_item
         render json: {
-          message: 'Product already in wishlist',
+          message: "Product already in wishlist",
           wishlist: @wishlist.as_json,
           item: wishlist_item.as_json
         }, status: :ok
@@ -31,17 +31,17 @@ module Api
         wishlist_item = @wishlist.wishlist_items.create!(product_id: product.id)
 
         render json: {
-          message: 'Product added to wishlist',
+          message: "Product added to wishlist",
           wishlist: @wishlist.as_json,
           item: wishlist_item.as_json
         }, status: :created
       end
 
     rescue ActiveRecord::RecordNotFound
-      render json: { error: 'Product not found' }, status: :not_found
+      render json: { error: "Product not found" }, status: :not_found
     rescue ActiveRecord::RecordInvalid => e
       render json: {
-        error: 'Failed to add item to wishlist',
+        error: "Failed to add item to wishlist",
         details: e.record.errors.full_messages
       }, status: :unprocessable_entity
     end
@@ -53,12 +53,12 @@ module Api
       wishlist_item.destroy!
 
       render json: {
-        message: 'Item removed from wishlist',
+        message: "Item removed from wishlist",
         wishlist: current_user.wishlist.as_json
       }, status: :ok
 
     rescue ActiveRecord::RecordNotFound
-      render json: { error: 'Wishlist item not found' }, status: :not_found
+      render json: { error: "Wishlist item not found" }, status: :not_found
     end
 
     # DELETE /api/wishlist/items/product/:product_id
@@ -68,12 +68,12 @@ module Api
       wishlist_item.destroy!
 
       render json: {
-        message: 'Item removed from wishlist',
+        message: "Item removed from wishlist",
         wishlist: current_user.wishlist.as_json
       }, status: :ok
 
     rescue ActiveRecord::RecordNotFound
-      render json: { error: 'Product not in wishlist' }, status: :not_found
+      render json: { error: "Product not in wishlist" }, status: :not_found
     end
 
     # DELETE /api/wishlist
@@ -82,7 +82,7 @@ module Api
       @wishlist.clear_items
 
       render json: {
-        message: 'Wishlist cleared',
+        message: "Wishlist cleared",
         wishlist: @wishlist.as_json
       }, status: :ok
     end

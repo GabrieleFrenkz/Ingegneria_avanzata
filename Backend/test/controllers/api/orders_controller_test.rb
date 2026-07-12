@@ -24,7 +24,7 @@ module Api
         quantity: 10,
         sale: false,
         thumbnail: "product1.jpg",
-        tags: ["electronics"]
+        tags: [ "electronics" ]
       )
 
       @product2 = Product.create!(
@@ -36,7 +36,7 @@ module Api
         quantity: 5,
         sale: false,
         thumbnail: "product2.jpg",
-        tags: ["books"]
+        tags: [ "books" ]
       )
     end
 
