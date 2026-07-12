@@ -1,7 +1,7 @@
 module Api
   class CartsController < ApplicationController
     before_action :require_authentication!
-    before_action :ensure_cart, only: [:show, :clear]
+    before_action :ensure_cart, only: [ :show, :clear ]
 
     # GET /api/cart
     # Returns current user's cart with all items
@@ -34,16 +34,16 @@ module Api
       end
 
       render json: {
-        message: 'Product added to cart',
+        message: "Product added to cart",
         cart: @cart.as_json,
         item: cart_item.as_json
       }, status: :ok
 
     rescue ActiveRecord::RecordNotFound
-      render json: { error: 'Product not found' }, status: :not_found
+      render json: { error: "Product not found" }, status: :not_found
     rescue ActiveRecord::RecordInvalid => e
       render json: {
-        error: 'Failed to add item to cart',
+        error: "Failed to add item to cart",
         details: e.record.errors.full_messages
       }, status: :unprocessable_entity
     end
@@ -55,19 +55,19 @@ module Api
 
       if cart_item.update(quantity: params[:quantity])
         render json: {
-          message: 'Cart item updated',
+          message: "Cart item updated",
           cart: current_user.cart.as_json,
           item: cart_item.as_json
         }, status: :ok
       else
         render json: {
-          error: 'Failed to update cart item',
+          error: "Failed to update cart item",
           details: cart_item.errors.full_messages
         }, status: :unprocessable_entity
       end
 
     rescue ActiveRecord::RecordNotFound
-      render json: { error: 'Cart item not found' }, status: :not_found
+      render json: { error: "Cart item not found" }, status: :not_found
     end
 
     # DELETE /api/cart/items/:id
@@ -77,12 +77,12 @@ module Api
       cart_item.destroy!
 
       render json: {
-        message: 'Item removed from cart',
+        message: "Item removed from cart",
         cart: current_user.cart.as_json
       }, status: :ok
 
     rescue ActiveRecord::RecordNotFound
-      render json: { error: 'Cart item not found' }, status: :not_found
+      render json: { error: "Cart item not found" }, status: :not_found
     end
 
     # DELETE /api/cart
@@ -91,7 +91,7 @@ module Api
       @cart.clear_items
 
       render json: {
-        message: 'Cart cleared',
+        message: "Cart cleared",
         cart: @cart.as_json
       }, status: :ok
     end
