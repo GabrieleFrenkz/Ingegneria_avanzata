@@ -15,8 +15,8 @@
 #   git push origin v1.0.0
 #
 # Le immagini saranno disponibili a:
-#   ghcr.io/<owner>/flowboard-backend:1.0.0
-#   ghcr.io/<owner>/flowboard-frontend:1.0.0
+#   ghcr.io/<owner>/shop-backend:1.0.0
+#   ghcr.io/<owner>/shop-frontend:1.0.0
 # =============================================================================
 
 name: Release
@@ -64,8 +64,8 @@ jobs:
           file: ./Backend/Dockerfile
           push: true
           tags: |
-            ghcr.io/${{ steps.meta.outputs.owner_lc }}/flowboard-backend:${{ steps.meta.outputs.version }}
-            ghcr.io/${{ steps.meta.outputs.owner_lc }}/flowboard-backend:latest
+            ghcr.io/${{ steps.meta.outputs.owner_lc }}/shop-backend:${{ steps.meta.outputs.version }}
+            ghcr.io/${{ steps.meta.outputs.owner_lc }}/shop-backend:latest
           cache-from: type=gha,scope=backend
           cache-to: type=gha,mode=max,scope=backend
           labels: |
@@ -80,8 +80,8 @@ jobs:
           file: ./Frontend/Dockerfile
           push: true
           tags: |
-            ghcr.io/${{ steps.meta.outputs.owner_lc }}/flowboard-frontend:${{ steps.meta.outputs.version }}
-            ghcr.io/${{ steps.meta.outputs.owner_lc }}/flowboard-frontend:latest
+            ghcr.io/${{ steps.meta.outputs.owner_lc }}/shop-frontend:${{ steps.meta.outputs.version }}
+            ghcr.io/${{ steps.meta.outputs.owner_lc }}/shop-frontend:latest
           cache-from: type=gha,scope=frontend
           cache-to: type=gha,mode=max,scope=frontend
           labels: |
@@ -94,5 +94,5 @@ jobs:
           echo "## Released v${{ steps.meta.outputs.version }}" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "Images published to GitHub Container Registry:" >> $GITHUB_STEP_SUMMARY
-          echo "- \`ghcr.io/${{ steps.meta.outputs.owner_lc }}/flowboard-backend:${{ steps.meta.outputs.version }}\`" >> $GITHUB_STEP_SUMMARY
-          echo "- \`ghcr.io/${{ steps.meta.outputs.owner_lc }}/flowboard-frontend:${{ steps.meta.outputs.version }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "- \`ghcr.io/${{ steps.meta.outputs.owner_lc }}/shop-backend:${{ steps.meta.outputs.version }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "- \`ghcr.io/${{ steps.meta.outputs.owner_lc }}/shop-frontend:${{ steps.meta.outputs.version }}\`" >> $GITHUB_STEP_SUMMARY
