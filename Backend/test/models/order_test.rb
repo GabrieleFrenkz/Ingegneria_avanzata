@@ -127,7 +127,7 @@ class OrderTest < ActiveSupport::TestCase
       quantity: 10,
       sale: false,
       thumbnail: "test.jpg",
-      tags: ["test"]
+      tags: [ "test" ]
     )
 
     order_item = order.order_items.create!(
@@ -157,7 +157,7 @@ class OrderTest < ActiveSupport::TestCase
       quantity: 10,
       sale: false,
       thumbnail: "test.jpg",
-      tags: ["test"]
+      tags: [ "test" ]
     )
 
     order.order_items.create!(
@@ -182,7 +182,7 @@ class OrderTest < ActiveSupport::TestCase
       quantity: 10,
       sale: false,
       thumbnail: "test.jpg",
-      tags: ["test"]
+      tags: [ "test" ]
     )
 
     order = Order.create!(

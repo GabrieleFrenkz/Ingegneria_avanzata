@@ -3,18 +3,18 @@ module Api
     # POST /api/register
     def register
       user = User.new(register_params)
-      user.role = 'user' # Forza il ruolo a user per la registrazione
+      user.role = "user" # Forza il ruolo a user per la registrazione
 
       if user.save
         token = generate_token(user)
         render json: {
-          message: 'Registration successful',
+          message: "Registration successful",
           user: user.as_json,
           token: token
         }, status: :created
       else
         render json: {
-          error: 'Registration failed',
+          error: "Registration failed",
           errors: user.errors.full_messages
         }, status: :unprocessable_entity
       end
@@ -27,13 +27,13 @@ module Api
       if user&.authenticate(login_params[:password])
         token = generate_token(user)
         render json: {
-          message: 'Login successful',
+          message: "Login successful",
           user: user.as_json,
           token: token
         }, status: :ok
       else
         render json: {
-          error: 'Invalid email or password'
+          error: "Invalid email or password"
         }, status: :unauthorized
       end
     end
@@ -44,7 +44,7 @@ module Api
       if current_user
         render json: current_user.as_json, status: :ok
       else
-        render json: { error: 'Not authenticated' }, status: :unauthorized
+        render json: { error: "Not authenticated" }, status: :unauthorized
       end
     end
 
@@ -74,7 +74,7 @@ module Api
         exp: 24.hours.from_now.to_i
       }
 
-      JWT.encode(payload, Rails.application.secret_key_base, 'HS256')
+      JWT.encode(payload, Rails.application.secret_key_base, "HS256")
     end
   end
 end
