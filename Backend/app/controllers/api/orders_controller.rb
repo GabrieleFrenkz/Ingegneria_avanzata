@@ -12,7 +12,7 @@ module Api
       @orders = Order.where(user_id: current_user.id)
     else
       # Utenti non autenticati non possono vedere ordini
-      render json: { error: "Not authenticated" }, status: :unauthorized
+      render json: { error: 'Not authenticated' }, status: :unauthorized
       return
     end
 
@@ -81,7 +81,7 @@ module Api
 
         success = true
       else
-        error_message = @order.errors.full_messages.join(", ")
+        error_message = @order.errors.full_messages.join(', ')
         raise ActiveRecord::Rollback
       end
     end
@@ -92,7 +92,7 @@ module Api
     elsif error_message
       render json: { error: error_message }, status: :unprocessable_entity
     else
-      render json: { error: "Unknown error occurred" }, status: :unprocessable_entity
+      render json: { error: 'Unknown error occurred' }, status: :unprocessable_entity
     end
   end
 
@@ -103,7 +103,7 @@ module Api
     if params[:start_date].present?
       begin
         start_date = Date.parse(params[:start_date])
-        orders = orders.where("created_at >= ?", start_date.beginning_of_day)
+        orders = orders.where('created_at >= ?', start_date.beginning_of_day)
       rescue ArgumentError
         # Ignora se la data non è valida
       end
@@ -113,7 +113,7 @@ module Api
     if params[:end_date].present?
       begin
         end_date = Date.parse(params[:end_date])
-        orders = orders.where("created_at <= ?", end_date.end_of_day)
+        orders = orders.where('created_at <= ?', end_date.end_of_day)
       rescue ArgumentError
         # Ignora se la data non è valida
       end
@@ -122,13 +122,13 @@ module Api
     # Filtro per totale minimo
     if params[:min_total].present?
       min_total = params[:min_total].to_f
-      orders = orders.where("total >= ?", min_total)
+      orders = orders.where('total >= ?', min_total)
     end
 
     # Filtro per totale massimo
     if params[:max_total].present?
       max_total = params[:max_total].to_f
-      orders = orders.where("total <= ?", max_total)
+      orders = orders.where('total <= ?', max_total)
     end
 
     orders
@@ -138,9 +138,9 @@ module Api
     params.require(:order).permit(
       :total,
       :createdAt,
-      customer: [ :firstName, :lastName, :email ],
-      address: [ :street, :city, :zip ],
-      items: [ :id, :title, :price, :originalPrice, :sale, :thumbnail, :createdAt, :description, :quantity, :inStock, tags: [] ]
+      customer: [:firstName, :lastName, :email],
+      address: [:street, :city, :zip],
+      items: [:id, :title, :price, :originalPrice, :sale, :thumbnail, :createdAt, :description, :quantity, :inStock, tags: []]
     )
   end
   end

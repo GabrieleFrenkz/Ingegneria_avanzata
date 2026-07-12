@@ -1,6 +1,6 @@
 class WishlistItem < ApplicationRecord
   belongs_to :wishlist
-  belongs_to :product, foreign_key: "product_id", primary_key: "id"
+  belongs_to :product, foreign_key: 'product_id', primary_key: 'id'
 
   validates :product_id, uniqueness: { scope: :wishlist_id }
 

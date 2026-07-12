@@ -14,7 +14,7 @@ class User < ApplicationRecord
 
   # Metodi helper
   def admin?
-    role == "admin"
+    role == 'admin'
   end
 
   def full_name

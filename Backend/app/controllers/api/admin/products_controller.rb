@@ -9,12 +9,12 @@ module Api
 
         if product.save
           render json: {
-            message: "Product created successfully",
+            message: 'Product created successfully',
             product: product.as_json
           }, status: :created
         else
           render json: {
-            error: "Failed to create product",
+            error: 'Failed to create product',
             errors: product.errors.full_messages
           }, status: :unprocessable_entity
         end
@@ -26,17 +26,17 @@ module Api
 
         if product.update(product_params)
           render json: {
-            message: "Product updated successfully",
+            message: 'Product updated successfully',
             product: product.as_json
           }, status: :ok
         else
           render json: {
-            error: "Failed to update product",
+            error: 'Failed to update product',
             errors: product.errors.full_messages
           }, status: :unprocessable_entity
         end
       rescue ActiveRecord::RecordNotFound
-        render json: { error: "Product not found" }, status: :not_found
+        render json: { error: 'Product not found' }, status: :not_found
       end
 
       # DELETE /api/admin/products/:id
@@ -45,10 +45,10 @@ module Api
         product.destroy
 
         render json: {
-          message: "Product deleted successfully"
+          message: 'Product deleted successfully'
         }, status: :ok
       rescue ActiveRecord::RecordNotFound
-        render json: { error: "Product not found" }, status: :not_found
+        render json: { error: 'Product not found' }, status: :not_found
       end
 
       # PATCH /api/admin/products/:id/adjust_quantity
@@ -59,18 +59,18 @@ module Api
         new_quantity = product.quantity + adjustment
 
         if new_quantity < 0
-          render json: { error: "Quantity cannot be negative" }, status: :unprocessable_entity
+          render json: { error: 'Quantity cannot be negative' }, status: :unprocessable_entity
           return
         end
 
         product.update!(quantity: new_quantity)
 
         render json: {
-          message: "Quantity adjusted successfully",
+          message: 'Quantity adjusted successfully',
           product: product.as_json
         }, status: :ok
       rescue ActiveRecord::RecordNotFound
-        render json: { error: "Product not found" }, status: :not_found
+        render json: { error: 'Product not found' }, status: :not_found
       end
 
       private

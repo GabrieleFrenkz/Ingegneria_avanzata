@@ -36,15 +36,15 @@ module Api
 
         render json: order.as_json, status: :ok
       rescue ActiveRecord::RecordNotFound
-        render json: { error: "Order not found" }, status: :not_found
+        render json: { error: 'Order not found' }, status: :not_found
       end
 
       def destroy
         order = Order.find(params[:id])
         order.destroy
-        render json: { message: "Order deleted successfully" }, status: :ok
+        render json: { message: 'Order deleted successfully' }, status: :ok
       rescue ActiveRecord::RecordNotFound
-        render json: { error: "Order not found" }, status: :not_found
+        render json: { error: 'Order not found' }, status: :not_found
       end
 
       # GET /api/admin/stats
@@ -52,9 +52,9 @@ module Api
       def stats
         total_orders = Order.count
         total_revenue = Order.sum(:total).to_f
-        total_users = User.where(role: "user").count
+        total_users = User.where(role: 'user').count
         total_products = Product.count
-        low_stock_products = Product.where("quantity < ?", 10).count
+        low_stock_products = Product.where('quantity < ?', 10).count
 
         recent_orders = Order.includes(:user)
                              .order(created_at: :desc)

@@ -8,6 +8,6 @@ class CreateCartItems < ActiveRecord::Migration[8.1]
       t.timestamps
     end
     add_foreign_key :cart_items, :products, column: :product_id, primary_key: :id
-    add_index :cart_items, [ :cart_id, :product_id ], unique: true
+    add_index :cart_items, [:cart_id, :product_id], unique: true
   end
 end

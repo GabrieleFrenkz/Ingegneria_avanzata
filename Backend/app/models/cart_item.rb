@@ -1,6 +1,6 @@
 class CartItem < ApplicationRecord
   belongs_to :cart
-  belongs_to :product, foreign_key: "product_id", primary_key: "id"
+  belongs_to :product, foreign_key: 'product_id', primary_key: 'id'
 
   validates :quantity, presence: true, numericality: {
     greater_than: 0,
@@ -32,7 +32,7 @@ class CartItem < ApplicationRecord
 
   def product_in_stock
     unless product&.in_stock?
-      errors.add(:product, "is out of stock")
+      errors.add(:product, 'is out of stock')
     end
   end
 
