@@ -108,10 +108,6 @@ soglia fissata a 10 unità). Cancellare un ordine dal pannello admin
   correlate (creazione ordine, cancellazione prodotto/ordine) sono
   transazionali o gestite con cascade/callback, per evitare stati
   intermedi inconsistenti.
-- **Verificabilità**: ogni funzionalità sopra descritta è coperta da test
-  automatici (unità, integrazione, property-based, end-to-end — vedi
-  `TESTING_NOTES.md` per il dettaglio) e da una pipeline CI/CD che esegue
-  lint, security scan, test e build ad ogni modifica.
 - **Portabilità/Deployment**: backend e frontend sono entrambi
   containerizzati (immagini Docker multi-stage), orchestrabili in locale
   con `docker-compose`.
