@@ -1,4 +1,4 @@
-# 🛒 E-Commerce Full-Stack Application
+# E-Commerce Full-Stack Application
 
 **Applicazione e-commerce completa** con backend Rails API e frontend Angular, che implementa funzionalità di catalogo prodotti, carrello della spesa, wishlist, sistema di checkout e pannello amministrativo.
 
@@ -13,51 +13,51 @@
 
 ---
 
-## 📑 Indice
+## Indice
 
-- [Caratteristiche Principali](#-caratteristiche-principali)
-- [Stack Tecnologico](#-stack-tecnologico)
-- [Architettura del Progetto](#-architettura-del-progetto)
-- [Prerequisiti](#-prerequisiti)
-- [Installazione e Setup](#-installazione-e-setup)
-- [Avvio dell'Applicazione](#-avvio-dellapplicazione)
-- [Utenti di Test](#-utenti-di-test)
-- [API Endpoints](#-api-endpoints)
-- [Struttura del Progetto](#-struttura-del-progetto)
-- [Funzionalità Implementate](#-funzionalità-implementate)
-- [Testing](#-testing)
+- [Caratteristiche Principali](#caratteristiche-principali)
+- [Stack Tecnologico](#stack-tecnologico)
+- [Architettura del Progetto](#architettura-del-progetto)
+- [Prerequisiti](#prerequisiti)
+- [Installazione e Setup](#installazione-e-setup)
+- [Avvio dell'Applicazione](#avvio-dellapplicazione)
+- [Utenti di Test](#utenti-di-test)
+- [API Endpoints](#api-endpoints)
+- [Struttura del Progetto](#struttura-del-progetto)
+- [Funzionalità Implementate](#funzionalità-implementate)
+- [Testing](#testing)
 
 ---
 
-## ✨ Caratteristiche Principali
+## Caratteristiche Principali
 
 ### Per gli Utenti
-- 🛍️ **Catalogo Prodotti** con ricerca e filtri avanzati (prezzo, titolo, ordinamento)
-- 🛒 **Carrello della Spesa** persistente per utenti autenticati
-- ❤️ **Wishlist** per salvare prodotti preferiti
-- 💳 **Checkout** con validazione dati e gestione ordini
-- 📦 **Storico Ordini** completo con dettagli prodotti e prezzi
-- 🔐 **Autenticazione sicura** con JWT e password hashing (bcrypt)
+- **Catalogo Prodotti** con ricerca e filtri avanzati (prezzo, titolo, ordinamento)
+- **Carrello della Spesa** persistente per utenti autenticati
+- **Wishlist** per salvare prodotti preferiti
+- **Checkout** con validazione dati e gestione ordini
+- **Storico Ordini** completo con dettagli prodotti e prezzi
+- **Autenticazione sicura** con JWT e password hashing (bcrypt)
 
 ### Per gli Amministratori
-- 📊 **Dashboard Amministrativa** con statistiche vendite in tempo reale
-- 📝 **Gestione Prodotti** completa (CRUD: create, read, update, delete)
-- 📦 **Gestione Inventario** con aggiornamento quantità e alert scorte basse
-- 🧾 **Visualizzazione Ordini** di tutti gli utenti
-- 📈 **Analytics** con prodotti più venduti e totale revenue
+- **Dashboard Amministrativa** con statistiche vendite in tempo reale
+- **Gestione Prodotti** completa (CRUD: create, read, update, delete)
+- **Gestione Inventario** con aggiornamento quantità e alert scorte basse
+- **Visualizzazione Ordini** di tutti gli utenti
+- **Analytics** con prodotti più venduti e totale revenue
 
 ### Sicurezza e Performance
-- 🔒 **JWT Authentication** con token expiration (24 ore)
-- 🛡️ **Password Hashing** con bcrypt (cost factor 12)
-- 🚫 **CORS Protection** configurato
-- ⚡ **Lazy Loading** dei moduli Angular per performance ottimizzate
-- 🔄 **State Management** reattivo con Angular Signals
-- 🎯 **Error Handling centralizzato** su frontend e backend
-- 🔐 **Role-based Access Control** (utenti normali vs admin)
+- **JWT Authentication** con token expiration (24 ore)
+- **Password Hashing** con bcrypt (cost factor 12)
+- **CORS Protection** configurato
+- **Lazy Loading** dei moduli Angular per performance ottimizzate
+- **State Management** reattivo con Angular Signals
+- **Error Handling centralizzato** su frontend e backend
+- **Role-based Access Control** (utenti normali vs admin)
 
 ---
 
-## 🚀 Stack Tecnologico
+## Stack Tecnologico
 
 ### Backend
 | Tecnologia | Versione | Utilizzo |
@@ -92,7 +92,7 @@
 
 ---
 
-## 🏗️ Architettura del Progetto
+## Architettura del Progetto
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -138,7 +138,7 @@
 
 ---
 
-## 📋 Prerequisiti
+## Prerequisiti
 
 Prima di iniziare, assicurati di avere installato:
 
@@ -169,16 +169,16 @@ ng version # Angular CLI 21.0
 
 ---
 
-## 🔧 Installazione e Setup
+## Installazione e Setup
 
-### 1️⃣ Clona il Repository
+### 1. Clona il Repository
 
 ```bash
 git clone <repository-url>
 cd Ingegneria_avanzata
 ```
 
-### 2️⃣ Setup Backend (Rails API)
+### 2. Setup Backend (Rails API)
 
 ```bash
 # Naviga nella cartella Backend
@@ -206,7 +206,7 @@ rails console
 - Il database SQLite3 viene creato in `Backend/storage/development.sqlite3`
 - I dati iniziali includono utenti di test e prodotti mock
 
-### 3️⃣ Setup Frontend (Angular)
+### 3. Setup Frontend (Angular)
 
 ```bash
 # Naviga nella cartella Frontend (dalla root del progetto)
@@ -225,7 +225,7 @@ ng version
 
 ---
 
-## ▶️ Avvio dell'Applicazione
+## Avvio dell'Applicazione
 
 ### Opzione A — Avvio manuale
 
@@ -266,7 +266,7 @@ sono invece multi-stage: buildano l'applicazione e la servono con
 Puma/Thruster (backend) o nginx (frontend), pensate per il deployment, non
 per lo sviluppo locale.
 
-### 🎯 Verifica Completa
+### Verifica Completa
 
 1. **Backend attivo:** http://localhost:3000/api/products → JSON prodotti
 2. **Frontend attivo:** http://localhost:4200 → Homepage catalogo
@@ -275,39 +275,39 @@ per lo sviluppo locale.
 
 ---
 
-## 👥 Utenti di Test
+## Utenti di Test
 
 Dopo aver eseguito `rails db:seed`, sono disponibili i seguenti utenti:
 
-### 🔑 Amministratore
+### Amministratore
 ```
 Email:    admin@example.com
 Password: password123
 Ruolo:    admin
 
 Accesso a:
-  ✅ Tutte le funzionalità utente
-  ✅ Dashboard amministrativa (/admin)
-  ✅ Gestione prodotti (CRUD completo)
-  ✅ Visualizzazione tutti gli ordini
-  ✅ Statistiche e analytics
+  - Tutte le funzionalità utente
+  - Dashboard amministrativa (/admin)
+  - Gestione prodotti (CRUD completo)
+  - Visualizzazione tutti gli ordini
+  - Statistiche e analytics
 ```
 
-### 👤 Utente Normale #1
+### Utente Normale #1
 ```
 Email:    user@example.com
 Password: password123
 Ruolo:    user
 
 Accesso a:
-  ✅ Catalogo prodotti
-  ✅ Carrello e wishlist
-  ✅ Checkout e ordini
-  ✅ Storico ordini personale
-  ❌ Dashboard admin
+  - Catalogo prodotti
+  - Carrello e wishlist
+  - Checkout e ordini
+  - Storico ordini personale
+  - Dashboard admin (non disponibile)
 ```
 
-### 👤 Utente Normale #2
+### Utente Normale #2
 ```
 Email:    user2@example.com
 Password: password123
@@ -316,28 +316,28 @@ Ruolo:    user
 (Stesse funzionalità dell'Utente #1)
 ```
 
-### 🆕 Registrazione Nuovo Utente
+### Registrazione Nuovo Utente
 - Vai su **http://localhost:4200/register**
 - Compila il form di registrazione
 - I nuovi utenti hanno ruolo `user` (non `admin`)
 
 ---
 
-## 📡 API Endpoints
+## API Endpoints
 
 ### Autenticazione
 | Method | Endpoint | Auth | Descrizione |
 |--------|----------|------|-------------|
-| POST | `/api/register` | ❌ | Registrazione nuovo utente |
-| POST | `/api/login` | ❌ | Login e generazione JWT |
-| GET | `/api/me` | ✅ | Ottieni utente corrente |
+| POST | `/api/register` | No | Registrazione nuovo utente |
+| POST | `/api/login` | No | Login e generazione JWT |
+| GET | `/api/me` | Sì | Ottieni utente corrente |
 
 
 ### Prodotti (Pubblico)
 | Method | Endpoint | Auth | Descrizione |
 |--------|----------|------|-------------|
-| GET | `/api/products` | ❌ | Lista prodotti con filtri |
-| GET | `/api/products/:id` | ❌ | Dettaglio singolo prodotto |
+| GET | `/api/products` | No | Lista prodotti con filtri |
+| GET | `/api/products/:id` | No | Dettaglio singolo prodotto |
 
 
 **Query Parameters per `/api/products`:**
@@ -350,27 +350,27 @@ Ruolo:    user
 ### Carrello (Autenticato)
 | Method | Endpoint | Auth | Descrizione |
 |--------|----------|------|-------------|
-| GET | `/api/cart` | ✅ | Visualizza carrello corrente |
-| POST | `/api/cart/items` | ✅ | Aggiungi prodotto al carrello |
-| PATCH | `/api/cart/items/:id` | ✅ | Aggiorna quantità item |
-| DELETE | `/api/cart/items/:id` | ✅ | Rimuovi item dal carrello |
-| DELETE | `/api/cart` | ✅ | Svuota completamente il carrello |
+| GET | `/api/cart` | Sì | Visualizza carrello corrente |
+| POST | `/api/cart/items` | Sì | Aggiungi prodotto al carrello |
+| PATCH | `/api/cart/items/:id` | Sì | Aggiorna quantità item |
+| DELETE | `/api/cart/items/:id` | Sì | Rimuovi item dal carrello |
+| DELETE | `/api/cart` | Sì | Svuota completamente il carrello |
 
 
 ### Wishlist (Autenticato)
 | Method | Endpoint | Auth | Descrizione |
 |--------|----------|------|-------------|
-| GET | `/api/wishlist` | ✅ | Visualizza wishlist |
-| POST | `/api/wishlist/items` | ✅ | Aggiungi prodotto alla wishlist |
-| DELETE | `/api/wishlist/items/:id` | ✅ | Rimuovi item (per ID) |
-| DELETE | `/api/wishlist/items/product/:product_id` | ✅ | Rimuovi item (per product_id) |
-| DELETE | `/api/wishlist` | ✅ | Svuota wishlist |
+| GET | `/api/wishlist` | Sì | Visualizza wishlist |
+| POST | `/api/wishlist/items` | Sì | Aggiungi prodotto alla wishlist |
+| DELETE | `/api/wishlist/items/:id` | Sì | Rimuovi item (per ID) |
+| DELETE | `/api/wishlist/items/product/:product_id` | Sì | Rimuovi item (per product_id) |
+| DELETE | `/api/wishlist` | Sì | Svuota wishlist |
 
 ### Ordini (Autenticato)
 | Method | Endpoint | Auth | Descrizione |
 |--------|----------|------|-------------|
-| GET | `/api/orders` | ✅ | Lista ordini utente |
-| POST | `/api/orders` | ✅ | Crea nuovo ordine dal carrello |
+| GET | `/api/orders` | Sì | Lista ordini utente |
+| POST | `/api/orders` | Sì | Crea nuovo ordine dal carrello |
 
 **Query Parameters per `/api/orders`:**
 - `start_date` / `end_date` - Filtro per intervallo di date
@@ -380,24 +380,24 @@ Ruolo:    user
 ### Admin - Prodotti (Solo Admin)
 | Method | Endpoint | Auth | Descrizione |
 |--------|----------|------|-------------|
-| POST | `/api/admin/products` | 🔐 Admin | Crea nuovo prodotto |
-| PATCH | `/api/admin/products/:id` | 🔐 Admin | Modifica prodotto |
-| DELETE | `/api/admin/products/:id` | 🔐 Admin | Elimina prodotto |
-| PATCH | `/api/admin/products/:id/adjust_quantity` | 🔐 Admin | Modifica quantità inventario |
+| POST | `/api/admin/products` | Admin | Crea nuovo prodotto |
+| PATCH | `/api/admin/products/:id` | Admin | Modifica prodotto |
+| DELETE | `/api/admin/products/:id` | Admin | Elimina prodotto |
+| PATCH | `/api/admin/products/:id/adjust_quantity` | Admin | Modifica quantità inventario |
 
 
 ### Admin - Ordini (Solo Admin)
 | Method | Endpoint | Auth | Descrizione |
 |--------|----------|------|-------------|
-| GET | `/api/admin/orders` | 🔐 Admin | Lista TUTTI gli ordini |
-| GET | `/api/admin/orders/:id` | 🔐 Admin | Dettaglio ordine specifico |
-| DELETE | `/api/admin/orders/:id` | 🔐 Admin | Elimina ordine (ripristina stock) |
-| GET | `/api/admin/stats` | 🔐 Admin | Statistiche dashboard |
+| GET | `/api/admin/orders` | Admin | Lista TUTTI gli ordini |
+| GET | `/api/admin/orders/:id` | Admin | Dettaglio ordine specifico |
+| DELETE | `/api/admin/orders/:id` | Admin | Elimina ordine (ripristina stock) |
+| GET | `/api/admin/stats` | Admin | Statistiche dashboard |
 
 
 ---
 
-## 📁 Struttura del Progetto
+## Struttura del Progetto
 ```
 Ingegneria_avanzata/
 │
@@ -787,16 +787,16 @@ Rappresenta un prodotto nella wishlist di un utente.
 
 
 ---
-## 🎯 Funzionalità Avanzate Implementate
+## Funzionalità Avanzate Implementate
 
-- ✅ Storico ordini avanzato con filtri
-- ✅ Wishlist
-- ✅ Admin Dashboard
+- Storico ordini avanzato con filtri
+- Wishlist
+- Admin Dashboard
 
 
-## 🎯 Funzionalità Implementate
+## Funzionalità Implementate
 
-### 🛒 Gestione Carrello Avanzata
+### Gestione Carrello Avanzata
 
 **Carrello Autenticato:**
 - Carrello persistente nel database, accessibile solo con token JWT valido
@@ -805,14 +805,14 @@ Rappresenta un prodotto nella wishlist di un utente.
 - Il prezzo unitario viene congelato al momento dell'aggiunta
 
 **Funzionalità Carrello:**
-- ➕ Aggiungi prodotto con quantità
-- ➖ Rimuovi prodotto
-- 🔢 Modifica quantità (con controllo disponibilità)
-- 🧹 Svuota carrello
-- 💰 Calcolo totale automatico
-- ⚠️ Validazione stock in tempo reale
+- Aggiungi prodotto con quantità
+- Rimuovi prodotto
+- Modifica quantità (con controllo disponibilità)
+- Svuota carrello
+- Calcolo totale automatico
+- Validazione stock in tempo reale
 
-### ❤️ Wishlist
+### Wishlist
 
 - Lista prodotti desiderati
 - One-to-one per utente
@@ -821,7 +821,7 @@ Rappresenta un prodotto nella wishlist di un utente.
 - Sposta direttamente al carrello
 - Solo per utenti autenticati
 
-### 📦 Gestione Ordini
+### Gestione Ordini
 
 **Creazione Ordine:**
 - Form checkout con validazione (dati cliente + indirizzo)
@@ -841,7 +841,7 @@ Rappresenta un prodotto nella wishlist di un utente.
 - Se un admin elimina un ordine, lo stock viene ripristinato automaticamente
 - Callback `before_destroy` sul model Order
 
-### 🔐 Autenticazione e Autorizzazione
+### Autenticazione e Autorizzazione
 
 **Sistema JWT:**
 - Token generato al login/registrazione
@@ -862,12 +862,12 @@ Rappresenta un prodotto nella wishlist di un utente.
 - Backend: `require_authentication!`, `require_admin!`
 - Route protette a livello di routing
 
-### 🔍 Ricerca e Filtri Prodotti
+### Ricerca e Filtri Prodotti
 
 **Filtri Implementati:**
-- 📝 **Ricerca Testuale:** LIKE query su title e description
-- 💵 **Range Prezzo:** min_price e max_price
-- 📊 **Ordinamento:**
+- **Ricerca Testuale:** LIKE query su title e description
+- **Range Prezzo:** min_price e max_price
+- **Ordinamento:**
   - Prezzo crescente/decrescente
   - Data aggiunta crescente/decrescente
 
@@ -877,7 +877,7 @@ Rappresenta un prodotto nella wishlist di un utente.
 - Paginazione lato client
 - Badge per prodotti "In Offerta" e "Esaurito"
 
-### 🛡️ Gestione Errori
+### Gestione Errori
 
 **Backend (Centralizzata in ApplicationController):**
 ```ruby
@@ -894,27 +894,27 @@ rescue_from StandardError → 500 Internal Server Error
 - **422 Validation:** Mostra errori specifici
 - **500 Server Error:** Notifica "Errore server"
 
-### 📊 Dashboard Amministrativa
+### Dashboard Amministrativa
 
 **Statistiche in Tempo Reale:**
-- 💰 Totale revenue (somma ordini)
-- 📦 Numero totale ordini
-- 👥 Numero utenti registrati
-- 🏷️ Numero prodotti catalogo
-- ⚠️ Prodotti con scorte basse (qty < 10)
+- Totale revenue (somma ordini)
+- Numero totale ordini
+- Numero utenti registrati
+- Numero prodotti catalogo
+- Prodotti con scorte basse (qty < 10)
 
 **Gestione Prodotti:**
-- ➕ Crea prodotto (form validato)
-- ✏️ Modifica prodotto (prezzo, descrizione, quantità, ecc.)
-- 🗑️ Elimina prodotto (con conferma)
-- 📦 Adjust quantity: +N o -N unità
+- Crea prodotto (form validato)
+- Modifica prodotto (prezzo, descrizione, quantità, ecc.)
+- Elimina prodotto (con conferma)
+- Adjust quantity: +N o -N unità
 
 **Gestione Ordini:**
 - Visualizza tutti gli ordini di tutti gli utenti
 - Dettaglio ordine completo
 - Elimina ordine (ripristina stock automaticamente)
 
-### ⚡ Performance e UX
+### Performance e UX
 
 **Lazy Loading:**
 - Moduli Angular caricati on-demand
@@ -936,7 +936,7 @@ rescue_from StandardError → 500 Internal Server Error
 
 ---
 
-## 🧪 Testing
+## Testing
 
 Il progetto copre tutti i livelli di test visti a lezione: unità,
 integrazione, property-based, end-to-end, oltre a una misura di coverage
